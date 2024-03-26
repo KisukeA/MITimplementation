@@ -23,16 +23,16 @@ body{
     position: absolute;
     inset: 0;
     margin: auto;
-    width: min(65%,550px);
+    width: min(75%,450px);
     height: fit-content;
     display: flex;
     flex-direction: column;
-    gap: 5rem;
+    gap: clamp(2rem,5vh,5rem);
 }
 .eventopia-logo{
     font-weight: 600;
     font-style: normal;
-    font-size: 32px;
+    font-size: clamp(1rem,3.5vh,2rem);
     color: white;
     width: fit-content;
     height: fit-content;
@@ -43,10 +43,10 @@ body{
 }
 
 .login-form{
-    --form-padding:2rem;
+    --form-padding:clamp(1rem,3vh,2rem);
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: clamp(0.75rem,4vh,1.5rem);
     background-color: white;
     border-radius: 20px;
     padding: var(--form-padding);
@@ -58,7 +58,7 @@ form > *:not(:last-child) {
     margin: 1rem 0 0 0;
     font-weight: 900;
     font-style: normal;
-    font-size: 1.5rem;
+    font-size: clamp(1rem,3.5vh,1.825rem);
     color: #3C3C3C;
 }
 .form-element{
@@ -66,14 +66,14 @@ form > *:not(:last-child) {
     display: flex;
     flex-direction: column;
     gap: .325rem;
-    font-size: 16px;
+    font-size: clamp(0.5rem,1.75vh,1rem);
 }
 .login-input{
     /*width: max(calc(100% - calc(var(--form-padding))), 75px);*/
     margin: 0;
     border: 3px solid #E3E3E3;
     border-radius: 10px;
-    padding: 1rem;
+    padding:clamp(0.4rem,1.75vh,1rem);
 }
 .login-label{
     margin-inline-start: .5rem;
@@ -89,8 +89,8 @@ form > *:not(:last-child) {
     font-size: 18px;
     padding: 0.75rem;
 }
-.login-form > h4{
-    margin: 0;
+.or-text{
+    margin: 0.5rem;
 }
 .login-form > span {
     color: black;
@@ -99,6 +99,7 @@ form > *:not(:last-child) {
 }
 .login-form > span > a {
     color: black;
+    text-underline-offset: 3px;
 }
 .login-error{
     color:red;
@@ -113,7 +114,7 @@ form > *:not(:last-child) {
     width: 75%;
     margin-inline: auto;
     font-family: 'Product Sans', sans-serif;
-    font-size: 0.8rem;
+    font-size: 1rem;
     text-decoration: none;
     color: #3C4043;
     font-weight: 600;
@@ -124,7 +125,7 @@ form > *:not(:last-child) {
     position: relative;
 }
 .login-google > svg{
-    font-size: 1.5rem;
+    font-size: clamp(1rem,3vh,1.5rem);
 }
 .login-google > span{
     margin-inline: auto;

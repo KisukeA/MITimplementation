@@ -1,0 +1,35 @@
+/* General */
+.home{
+    font-family: Inter;
+}
+
+/* Header */
+.home-header{
+    display: flex;
+    align-items: center;
+}
+
+/* Search */
+.home-search-field{
+    display: inline-block;
+}
+.home-searchbar-wrapper{
+    display: flex;
+    align-items: center;
+}
+
+/* Categories */
+
+
+/* Main */
+
+/* Nav (its gon be a component prolly */
+.home-nav{
+    background-color: white;
+}
+.nav-create-button, .nav-icons-container{
+}
+.nav-create-button{
+    aspect-ratio: 3/1;
+    width: 30px;
+}

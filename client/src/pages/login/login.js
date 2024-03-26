@@ -22,12 +22,9 @@ const Login = () => {
         }
         try{
             const a = await login(credentials);
-            const url = '/profile/' + a.data.id
-            console.log(a);  
-            navigate(url);
+            navigate('/');
         }
         catch(err){
-            console.log(err);
             setError(err.response?.data);
            }
     }
@@ -49,16 +46,16 @@ const Login = () => {
         // Your custom logic here
         setUser({id:0, username:"guest","profilePicture": null, role: "guest"})
       };
-    //console.log(credentials);
+    console.log(credentials);
     return (
         <div className="login-wrapper">
             <div className = "blur"></div>
             <div className="login-content">
                 <div className="eventopia-logo">Eventopia
-                    <svg width="40" height="40" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M49.4999 54.15C49.4999 48.8757 45.2242 44.6 39.9499 44.6C34.6756 44.6 30.3999 48.8757 30.3999 54.15C30.3999 59.4243 34.6756 63.7 39.9499 63.7C45.2242 63.7 49.4999 59.4243 49.4999 54.15Z" fill="white"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M49.0781 39.4217C44.0404 34.3839 44.0404 26.2161 49.0781 21.1783C54.1159 16.1406 62.2837 16.1406 67.3215 21.1783C72.3592 26.2161 72.3592 34.3839 67.3215 39.4217L58.1998 48.5434L49.0781 39.4217Z" fill="white"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.6782 39.4217C7.64046 34.3839 7.64046 26.2161 12.6782 21.1783C17.716 16.1406 25.8838 16.1406 30.9216 21.1783C35.9593 26.2161 35.9593 34.3839 30.9216 39.4217L21.7999 48.5434L12.6782 39.4217Z" fill="white"/>
+                    <svg width="min(4.2vh,45px)" height="min(4.2vh,45px)" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fillRule="evenodd" clipRule="evenodd" d="M49.4999 54.15C49.4999 48.8757 45.2242 44.6 39.9499 44.6C34.6756 44.6 30.3999 48.8757 30.3999 54.15C30.3999 59.4243 34.6756 63.7 39.9499 63.7C45.2242 63.7 49.4999 59.4243 49.4999 54.15Z" fill="white"/>
+                        <path fillRule="evenodd" clipRule="evenodd" d="M49.0781 39.4217C44.0404 34.3839 44.0404 26.2161 49.0781 21.1783C54.1159 16.1406 62.2837 16.1406 67.3215 21.1783C72.3592 26.2161 72.3592 34.3839 67.3215 39.4217L58.1998 48.5434L49.0781 39.4217Z" fill="white"/>
+                        <path fillRule="evenodd" clipRule="evenodd" d="M12.6782 39.4217C7.64046 34.3839 7.64046 26.2161 12.6782 21.1783C17.716 16.1406 25.8838 16.1406 30.9216 21.1783C35.9593 26.2161 35.9593 34.3839 30.9216 39.4217L21.7999 48.5434L12.6782 39.4217Z" fill="white"/>
                     </svg>
                 </div>
                 <div className="login-form">
@@ -76,10 +73,12 @@ const Login = () => {
                        </div>
                    </form>
                     {error &&<p className="login-error">{error}</p>}
-                    <button onClick={sendCred} className = "login-submit" >Log in</button>
-                    <h4>OR</h4>
-                    <Link className = "login-google" /*</div>onClick={handleClick} to ="/profile/0"*/ > <FontAwesomeIcon icon={faGoogle} /><span>Continue with Google</span></Link>
-                    <span>Don't have an account? <Link to ="/register">Sign up.</Link></span>
+                    <div>
+                        <button onClick={sendCred} className = "login-submit" >Log in</button>
+                        <h4 className = "or-text">OR</h4>
+                        <Link className = "login-google" /*</div>onClick={handleClick} to ="/profile/0"*/ > <FontAwesomeIcon icon={faGoogle} /><span>Continue with Google</span></Link>
+                    </div>
+                    <span>Don't have an account? <Link to ="/register">Sign up</Link></span>
                 </div>
             </div>
         </div>

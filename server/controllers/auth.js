@@ -6,7 +6,7 @@ export const login = (req,res) =>{
 
     //secret key used for creating the cookie
     const secretKey = "gjoretinolukasriste";
-
+    //fetch whatever else we need, like locaion name etc...
     const q = "SELECT * FROM User WHERE username = ?"
     db.query(q,[req.body.username],(err,data)=>{
         if(err) return res.status(500).json(err)
