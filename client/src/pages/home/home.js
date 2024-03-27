@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass,faFilter,faCalendarDays,faClock,faMapPin,faHouseUser,faThumbTack,faUserNinja } from '@fortawesome/free-solid-svg-icons';
 import { ReactComponent as FilterIcon } from '../../assets/filtericon.svg';
 import { ReactComponent as SettingsIcon } from '../../assets/settingsicon.svg';
-import { ReactComponent as NavCard } from '../../assets/navcard.svg';
+import { ReactComponent as Nav } from '../../assets/navcard.svg';
 import "./home.css";
 
 const Home = () => {
@@ -59,15 +59,20 @@ const Home = () => {
           </div>
         </div>
         <div className="home-nav">
-          {/*<NavCard className="nav-card"/>*/}
+          < Nav className="nav-card"/>
+          <div className = "cutout"></div>
           <button className="nav-create-button">
             +
           </button>
           <div className="nav-icons-container">
-          <FontAwesomeIcon icon={faHouseUser} />
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
-          <FontAwesomeIcon icon={faMapPin} />
-          <FontAwesomeIcon icon={faUserNinja} />
+            <div>
+              <FontAwesomeIcon className="nav-icon" icon={faHouseUser} />
+              <FontAwesomeIcon className="nav-icon" icon={faMagnifyingGlass} />
+            </div>
+            <div>
+              <FontAwesomeIcon className="nav-icon" icon={faMapPin} />
+              <FontAwesomeIcon className="nav-icon" icon={faUserNinja} />
+              </div>
           </div>
         </div>
       </div>

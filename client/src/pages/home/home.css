@@ -1,6 +1,9 @@
 /* General */
 .home{
     font-family: Inter;
+    height: 100svh;
+    position: relative;
+    background-color:white;
 }
 
 /* Header */
@@ -25,11 +28,74 @@
 
 /* Nav (its gon be a component prolly */
 .home-nav{
+    position: absolute;
+    bottom: 0;
+    width: 100svw;
+    height: 10vh;
     background-color: white;
-}
-.nav-create-button, .nav-icons-container{
+    
 }
 .nav-create-button{
-    aspect-ratio: 3/1;
-    width: 30px;
+    padding: 0;
+    color: white;
+    font-size: clamp(3rem,13vw,7rem);
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    width: 15vw;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    border: none;
+    background: linear-gradient(68.53deg, #FF0000 15.57%, #FF0000 15.58%, #F950FC 84.77%);
+
+}
+@media screen and (min-aspect-ratio: 1/1) {
+    .nav-create-button{
+        width: 10vh;
+        height: 10vh;
+        font-size: clamp(2rem,9vh,5rem);
+    }
+}
+@media screen and (min-aspect-ratio: 1.75/1) {
+    .home-nav{
+        height: 15vh;
+    }
+    .nav-create-button{
+        width: 12vh;
+        height: 12vh;
+    }
+}
+@media screen and (max-aspect-ratio: 1/2) {
+  .nav-create-button{
+      width: 9vh;
+      height: 9vh;
+      font-size: clamp(2rem,8vh,5rem);
+  }
+  .nav-icons-container{
+    font-size: clamp(1.25rem,5vh,2rem);
+  }
+}
+.nav-icons-container{
+    --nav-padding: clamp(1rem, 7vw ,6rem);
+    padding-inline: var(--nav-padding);
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - calc(2 * var(--nav-padding)));
+    top: 50%;
+    transform: translateY(-50%);
+    color: red;
+    font-size: clamp(1.25rem,4.5vw,2.25rem);
+}
+.nav-icons-container > div {
+    display: flex;
+    gap: clamp(1rem,10vw,10rem);
+}
+.nav-card{
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    height: inherit;
+    width: inherit;
 }
