@@ -1,0 +1,132 @@
+body{
+    margin: 0;
+}
+.login-wrapper{
+    text-align: center;
+    font-family: Inter;
+    inset: 3px;
+    overflow: hidden;
+}
+.blur{
+    position: absolute;
+    inset: 0px;
+    background: url('https://images.unsplash.com/photo-1541532713592-79a0317b6b77?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+}
+.login-content{
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: min(75%,450px);
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2rem,5vh,5rem);
+}
+.eventopia-logo{
+    font-weight: 600;
+    font-style: normal;
+    font-size: clamp(1rem,3.5vh,2rem);
+    color: white;
+    width: fit-content;
+    height: fit-content;
+    align-self: center;
+    display: flex;
+    align-items: flex-end;
+    gap: .25rem;
+}
+
+.login-form{
+    --form-padding:clamp(1rem,3vh,2rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.75rem,4vh,1.5rem);
+    background-color: white;
+    border-radius: 20px;
+    padding: var(--form-padding);
+}
+form > *:not(:last-child) {
+    margin-block-end: 0.75rem;
+}
+.login-form > h2{
+    margin: 1rem 0 0 0;
+    font-weight: 900;
+    font-style: normal;
+    font-size: clamp(1rem,3.5vh,1.825rem);
+    color: #3C3C3C;
+}
+.form-element{
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: .325rem;
+    font-size: clamp(0.5rem,1.75vh,1rem);
+}
+.login-input{
+    /*width: max(calc(100% - calc(var(--form-padding))), 75px);*/
+    margin: 0;
+    border: 3px solid #E3E3E3;
+    border-radius: 10px;
+    padding:clamp(0.4rem,1.75vh,1rem);
+}
+.login-label{
+    margin-inline-start: .5rem;
+}
+.login-submit{
+    background-color: #FF0000;
+    color: white;
+    border: none;
+    border-radius: 100vw;
+    width: 75%;
+    margin-inline: auto;
+    font-family: Inter;
+    font-size: 18px;
+    padding: 0.75rem;
+}
+.or-text{
+    margin: 0.5rem;
+}
+.login-form > span {
+    color: black;
+    font-weight: 700;
+    
+}
+.login-form > span > a {
+    color: black;
+    text-underline-offset: 3px;
+}
+.login-error{
+    color:red;
+    margin: 0;
+}
+.login-error > p {
+    margin: 0;
+}
+.login-google{
+    border: 2px solid #DADCE0;
+    border-radius: 100vw;
+    width: 75%;
+    margin-inline: auto;
+    font-family: 'Product Sans', sans-serif;
+    font-size: 1rem;
+    text-decoration: none;
+    color: #3C4043;
+    font-weight: 600;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+.login-google > svg{
+    font-size: clamp(1rem,3vh,1.5rem);
+}
+.login-google > span{
+    margin-inline: auto;
+}
