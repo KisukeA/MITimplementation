@@ -1,0 +1,151 @@
+/* helpers */
+.full-screen{
+    grid-column: 1/4;
+}
+.bottom-row{
+    grid-row: 3/4;
+    padding: 0;
+}
+
+/* general */
+
+.create-wrapper{
+    --create-padding: clamp(1rem, 5vw, 3rem);
+    position: absolute;
+    inset: 0;
+    top:100%;
+    width: 100svw;
+    height: 100svh;
+    background-color: white;
+    animation: slide-up 500ms ease-in forwards;
+    display: grid;
+    grid-template-columns: var(--create-padding) 1fr  var(--create-padding);
+    grid-template-rows: 10% 1fr 12%;
+}
+/* must be after the previous */
+.closing{
+    animation: slide-out 500ms ease-in-out forwards;
+}
+@keyframes slide-up {
+    to{
+        top:0%;
+    }
+}
+@keyframes slide-out {
+    from{
+        top:0%;
+        left:0%;
+    }
+    to{
+        top: 0%;
+        left: 100%;
+    }
+}
+.create-exit-btn{
+    grid-row: 1/2;
+    grid-column:  2/3;
+    width: fit-content;
+    height: fit-content;
+    align-self: end;
+    background: none;
+    border: none;
+    color: black;
+    font-size: clamp(1.25rem, 5.5vw, 2.25rem);
+    cursor: pointer;
+}
+.main-content{
+    grid-column: 2/3;
+    grid-row: 2/3;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.create-form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 1rem;
+    padding: .5rem;
+}
+.create-form-group > label, .create-form-date > label, .create-form-time > label, .create-upload > label{
+    padding-inline: 0;
+    font-size: clamp(1rem, 5vw, 1.5rem);
+    color: black;
+    font-weight: 700;
+}
+.create-form-input {
+    font-size: clamp(.75rem, 4vw, 1.125rem);
+    border: none;
+    border-bottom: 1px solid rgb(100, 100, 100);
+    padding-inline: 0;
+}
+/* for the location input*/
+#locationgroup > input {
+    border: none;
+    flex-grow: 1;
+    padding-inline: 0;
+}
+#locationgroup > input:focus-visible {
+    outline: none;
+}
+#locationgroup {
+    display: flex;
+    gap: .25rem;
+    justify-content: space-between;
+    padding-inline-end: .25rem;
+}
+.create-form-datetime{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: flex-end;
+    gap: 1rem;
+    padding: .5rem;
+}
+.create-form-date, .create-form-time{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+.create-form-date-input, .create-form-time-input{
+    border: none;
+    border-bottom: 1px solid rgb(100, 100, 100);
+    font-size: clamp(.75rem, 4vw, 1.125rem);
+}
+.create-upload{
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.create-images{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 1rem;
+}
+.create-images > *{
+    width: 100%;
+    max-width: 100px;
+    aspect-ratio: 1.31/1;
+    border-radius: clamp(.5rem,4vw,1rem);
+    background-color: #D9D9D9;
+    color: #9C9C9C;
+    margin-inline: auto;
+    font-size: clamp(2rem, 5.5vh, 3rem);
+    font-weight: 700;
+    text-align: center;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+}
+.create-event-btn{
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(90deg, #EB5253 0%, #9A3FF0 100%);
+    color: white;
+    font-size: clamp(0.75rem, 2.5vh, 2rem);
+    font-weight: 550;
+    cursor: pointer;
+}
