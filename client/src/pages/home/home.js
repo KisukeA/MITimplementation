@@ -13,16 +13,18 @@ const Home = () => {
     return (
       <div className="home">
         <div className="home-header">
-          <h2>Hi, {user.username} </h2>
-          <span className="home-location"> {user.locationName} </span> {/*this has to be fetched first from the db TODO*/}
-          <SettingsIcon />
+          <div className="home-header-content">
+            <h2>Hi, {user.username} </h2>
+            <span className="home-location"> {user.locationName} ddd</span> {/*this has to be fetched first from the db TODO*/}
+          </div>
+          <SettingsIcon className="home-header-icon"/>
         </div>
         <div className="home-searchbar-wrapper">
           <div className="home-search-field">
             <FontAwesomeIcon icon={faMagnifyingGlass} style={{color:"#888888"}}/>
             <input className="home-search-input" placeholder="Search..."></input>
           </div>
-          <FontAwesomeIcon icon={faFilter} className="home-filter" />
+          {/*<FontAwesomeIcon visibility = "hidden" icon={faFilter} className="home-filter" />*/}
           <FilterIcon style={{ fill: "blue" }}/>
         </div>
         <div className="home-categories-wrapper">
@@ -31,31 +33,179 @@ const Home = () => {
             <span className="home-categories-show">Show all</span>
           </div>
           <div className="home-categories-field">
-            <div className="category"></div><div className="category"></div><div className="category"></div><div className="category"></div><div className="category"></div>
+            <div className="category"></div><div className="category"></div><div className="category"></div><div className="category"></div><div className="category"></div><div className="category"></div><div className="category"></div>
             {/*this will most likely be a mapping or a component */}
           </div>
         </div>
         <div className="home-main">
           <div className="home-trending">
-            {/*this will most likely be a mapping or a component */}
-            <div className="event-wrapper">
-              <img className="event-picture"></img>
-              <div className="event-content-grid">
-                <div className="event-content-datetime">
-                  <FontAwesomeIcon icon={faCalendarDays} /><span className="event-date"></span>
-                  <FontAwesomeIcon icon={faClock} /><span className="event-time"></span> 
+            <h2 className="home-trending-header">Trending events</h2>
+            <div className="events-wrapper">
+              {/*this will most likely be a mapping or a component */}
+              <div className="event">
+                <img className="event-picture"></img>
+                <div className="event-content">
+                  <div className="event-content-datetime">
+                    <div>
+                      <FontAwesomeIcon icon={faCalendarDays} /><span className="event-date"> 09 May 24</span>
+                      </div>
+                    <div>
+                      <FontAwesomeIcon icon={faClock} /><span className="event-time"> 22:00</span> 
+                    </div>
+                  </div>
+                  <div className="event-content-location">
+                    <FontAwesomeIcon icon={faThumbTack} /> <span> Piran, Slovenia</span>
+                  </div>
+                  <div className="event-interact">
+                    <div className="event-coming">
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                    </div>
+                    <button className="event-interested-button">Want to go</button>
+                  </div>
                 </div>
-                <FontAwesomeIcon icon={faThumbTack} /> <span className="event-content-location"></span>
-                <div className="event-coming">
-
+              </div>
+              <div className="event">
+                <img className="event-picture"></img>
+                <div className="event-content">
+                  <div className="event-content-datetime">
+                    <div>
+                      <FontAwesomeIcon icon={faCalendarDays} /><span className="event-date"> 09 May 24</span>
+                      </div>
+                    <div>
+                      <FontAwesomeIcon icon={faClock} /><span className="event-time"> 22:00</span> 
+                    </div>
+                  </div>
+                  <div className="event-content-location">
+                    <FontAwesomeIcon icon={faThumbTack} /> <span> Piran, Slovenia</span>
+                  </div>
+                  <div className="event-interact">
+                    <div className="event-coming">
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                    </div>
+                    <button className="event-interested-button">Want to go</button>
+                  </div>
                 </div>
-                <button className="event-interested-button"> Interested</button>
+              </div>
+              <div className="event">
+                <img className="event-picture"></img>
+                <div className="event-content">
+                  <div className="event-content-datetime">
+                    <div>
+                      <FontAwesomeIcon icon={faCalendarDays} /><span className="event-date"> 09 May 24</span>
+                      </div>
+                    <div>
+                      <FontAwesomeIcon icon={faClock} /><span className="event-time"> 22:00</span> 
+                    </div>
+                  </div>
+                  <div className="event-content-location">
+                    <FontAwesomeIcon icon={faThumbTack} /> <span> Piran, Slovenia</span>
+                  </div>
+                  <div className="event-interact">
+                    <div className="event-coming">
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                    </div>
+                    <button className="event-interested-button">Want to go</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div className="home-upcoming">
+            <h2 className="home-upcoming-header">Upcoming events</h2>
             {/*this will most likely be a mapping or a component */}
-            <div className="event-wrapper"></div>
+            <div className="events-wrapper">
+              {/*this will most likely be a mapping or a component */}
+              <div className="event">
+                <img className="event-picture"></img>
+                <div className="event-content">
+                  <div className="event-content-datetime">
+                    <div>
+                      <FontAwesomeIcon icon={faCalendarDays} /><span className="event-date"> 09 May 24</span>
+                      </div>
+                    <div>
+                      <FontAwesomeIcon icon={faClock} /><span className="event-time"> 22:00</span> 
+                    </div>
+                  </div>
+                  <div className="event-content-location">
+                    <FontAwesomeIcon icon={faThumbTack} /> <span> Piran, Slovenia</span>
+                  </div>
+                  <div className="event-interact">
+                    <div className="event-coming">
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                    </div>
+                    <button className="event-interested-button">Want to go</button>
+                  </div>
+                </div>
+              </div>
+              <div className="event">
+                <img className="event-picture"></img>
+                <div className="event-content">
+                  <div className="event-content-datetime">
+                    <div>
+                      <FontAwesomeIcon icon={faCalendarDays} /><span className="event-date"> 09 May 24</span>
+                      </div>
+                    <div>
+                      <FontAwesomeIcon icon={faClock} /><span className="event-time"> 22:00</span> 
+                    </div>
+                  </div>
+                  <div className="event-content-location">
+                    <FontAwesomeIcon icon={faThumbTack} /> <span> Piran, Slovenia</span>
+                  </div>
+                  <div className="event-interact">
+                    <div className="event-coming">
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                    </div>
+                    <button className="event-interested-button">Want to go</button>
+                  </div>
+                </div>
+              </div>
+              <div className="event">
+                <img className="event-picture"></img>
+                <div className="event-content">
+                  <div className="event-content-datetime">
+                    <div>
+                      <FontAwesomeIcon icon={faCalendarDays} /><span className="event-date"> 09 May 24</span>
+                      </div>
+                    <div>
+                      <FontAwesomeIcon icon={faClock} /><span className="event-time"> 22:00</span> 
+                    </div>
+                  </div>
+                  <div className="event-content-location">
+                    <FontAwesomeIcon icon={faThumbTack} /> <span> Piran, Slovenia</span>
+                  </div>
+                  <div className="event-interact">
+                    <div className="event-coming">
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                      <div className="placeholder-img"></div>
+                    </div>
+                    <button className="event-interested-button">Want to go</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="home-nav">
