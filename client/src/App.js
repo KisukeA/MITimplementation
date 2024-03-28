@@ -3,6 +3,7 @@ import { AuthContext } from "./context/AuthContext.js";
 import Login from "./pages/login/login.js";
 import Register from "./pages/register/register.js";
 import Profile from "./pages/profile/profile.js";
+import SingleEvent from "./pages/singleevent/singleevent.js";
 import Home from "./pages/home/home.js";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import { useContext } from "react";
@@ -53,10 +54,10 @@ function App() {
           path: "/profile/:id",
           element: <Profile />,
         },
-        /*{
-          path: "/singlevent/:eventId",
+        {
+          path: "/singleevent/:eventId",
           element: <SingleEvent />,
-        }*/
+        }
       ],
     },
     {
