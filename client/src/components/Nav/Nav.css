@@ -1,0 +1,78 @@
+.nav{
+    position: absolute;
+    bottom: calc(var(--home-padding) - 2px);
+    left: calc(-2 * var(--home-padding));
+    width: calc(100svw + 4 * var(--home-padding));
+    height: var(--nav-height);
+    background-color: transparent;
+}
+.nav-create-button{
+    padding: 0;
+    color: white;
+    font-size: clamp(3rem,11vw,4.5rem);
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    width: clamp(3rem,15vw,5rem);
+    height: clamp(3rem,15vw,5rem);
+    border-radius: 100%;
+    border: none;
+    background: linear-gradient(68.53deg, #FF0000 15.57%, #FF0000 15.58%, #F950FC 84.77%);
+    cursor: pointer;
+}
+@media screen and (min-aspect-ratio: 1/1) {
+    .nav-create-button{
+        width: 10vh;
+        height: 10vh;
+        font-size: clamp(2rem,9vh,5rem);
+    }
+}
+@media screen and (min-aspect-ratio: 1.75/1) {
+    .home-nav{
+        height: 15vh;
+    }
+    .nav-create-button{
+        width: 12vh;
+        height: 12vh;
+    }
+}
+
+.nav-icons-container{
+    --nav-padding: clamp(1rem, 7vw ,6rem);
+    padding-inline: var(--nav-padding);
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - calc(4 * var(--nav-padding)));
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    color: red;
+    font-size: clamp(1.25rem,4.5vw,2.25rem);
+}
+.nav-icons-container > div {
+    display: flex;
+    gap: clamp(1rem,10vw,10rem);
+}
+@media screen and (max-aspect-ratio: 1/2) {
+    .nav-create-button{
+        width: 9vh;
+        height: 9vh;
+        font-size: clamp(2rem,8vh,5rem);
+    }
+    .nav-icons-container{
+      font-size: clamp(1rem,5vh,1.5rem);
+      padding-inline:  clamp(2.25rem, 5vw ,6rem);
+    }
+  }
+.nav-card{
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    height: inherit;
+    width: inherit;
+}
+.nav-icon{
+        cursor: pointer;
+}

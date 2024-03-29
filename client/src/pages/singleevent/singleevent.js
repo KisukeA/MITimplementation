@@ -24,6 +24,15 @@ const SingleEvent = () => {
             return () => clearTimeout(timer);
         }
     }, [closingEvent]);
+    const { isLoading, error, data:event } = useQuery({
+        queryKey: ["singleevent",eventId], 
+        queryFn: () => {
+        return makeRequest.get(`/event/single?eventId=${eventId}`).then((res)=>{
+          console.log(res.data);
+          return res.data;
+        })}
+      });
+
     return (
         <div className={`single-wrapper ${closingEvent?'closingEvent':''}`}>
             <button className="single-exit-btn" onClick={()=>{setClosingEvent(true)}}>
@@ -34,24 +43,30 @@ const SingleEvent = () => {
                 
                 <div className="single-form-group">
                     <div className='single-meta'>
-                        <label> Event Title </label>
+                        <label> Event title </label>
                         <div className='single-meta-icons'>
                             <div>
-                                <FontAwesomeIcon icon={faCalendarDays} /><span> 09 May 24 </span>
+                                <FontAwesomeIcon icon={faCalendarDays} />
+                                    <span> 
+                                    {new Date(event?.datetime?.split('T')[0]).toDateString().split(" ").slice(1,).join(" ")} 
+                                    </span>
                             </div>
                             <div>
-                                <FontAwesomeIcon icon={faClock} /><span> 22:00 </span>
+                                <FontAwesomeIcon icon={faClock} />
+                                <span> 
+                                    {event?.datetime?.split('T')[1].split(":").slice(0,2).join(':')}  
+                                </span>
                             </div>
                             <div>
-                            <FontAwesomeIcon icon={faChampagneGlasses} /><span> Party</span>
+                            <FontAwesomeIcon icon={faChampagneGlasses} /><span className='single-category'> {event?.category} </span>
                             </div>
                         </div>
                     </div> 
-                    <span className="single-title"> Pub Quiz</span>
+                    <span className="single-title"> {event?.title} </span>
                 </div>
                 <div className="single-form-group">
                     <label> Description </label>
-                    <span className="single-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+                     <span className="single-description"> {event?.description}{/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.*/}</span> 
                 </div>
                 <div className="single-going">
                     <label> People going </label>

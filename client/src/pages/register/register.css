@@ -118,7 +118,7 @@ form > *:not(:last-child) {
     text-decoration: none;
     color: #3C4043;
     font-weight: 600;
-    padding: 1rem;
+    padding: clamp(.25rem,1vh,1rem);
     display: flex;
     gap: 4px;
     align-items: center;
@@ -133,7 +133,7 @@ form > *:not(:last-child) {
 }
 .register-choose {
     width: 30vw;
-    height: 30vw;
+    height: fit-content;
     background-color: white;
     border: 3px solid #FF0000;
     border-radius: 1rem;
@@ -144,7 +144,7 @@ form > *:not(:last-child) {
     z-index: 1; /* careful with these */
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 10px;
 }
 .register-role-button{

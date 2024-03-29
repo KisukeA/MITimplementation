@@ -95,6 +95,13 @@
     flex-wrap: wrap;
     gap: .5rem;
 }
+.single-meta-icons > div{
+    display: flex;
+    gap: .25rem;
+}
+.single-category{
+    text-transform:capitalize;
+}
 .single-title, .single-description {
     color: #848484;
     padding-block-end: .5rem;

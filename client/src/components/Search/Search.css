@@ -1,0 +1,24 @@
+.searchbar-wrapper{
+    display: flex;
+    align-items: center;
+    gap: clamp(.5rem,5vw,2.5rem);
+    padding-block: .5rem;
+    font-size: clamp(1rem, 2.75vw, 1.75rem);
+}
+.search-field{
+    width: 100%;
+    padding: clamp(.75rem,4vw,1.125rem);
+    background-color: #F3F3F3;
+    border-radius: 100vw;
+    display: flex;
+    gap: .5rem;
+}
+.search-input{
+    border: none;
+    width: 100%;
+    background-color: inherit;
+    font-size: clamp(1rem, 2.75vw, 1.75rem);
+}
+.search-input:focus-visible{
+    outline: none;
+}
