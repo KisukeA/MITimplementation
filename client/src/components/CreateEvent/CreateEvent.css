@@ -10,7 +10,7 @@
 /* general */
 
 .create-wrapper{
-    --create-padding: clamp(1rem, 5vw, 3rem);
+    --create-padding: clamp(1rem, 3vw, 3rem);
     position: absolute;
     inset: 0;
     top:100%;
@@ -81,11 +81,17 @@
     border-bottom: 1px solid rgb(100, 100, 100);
     padding-inline: 0;
 }
+.create-form-input:focus-visible{
+    outline: 0;
+}
+
 /* for the location input*/
 #locationgroup > input {
     border: none;
+    font-size: clamp(.75rem, 4vw, 1.125rem);
     flex-grow: 1;
     padding-inline: 0;
+    background-color: transparent;
 }
 #locationgroup > input:focus-visible {
     outline: none;
@@ -93,8 +99,15 @@
 #locationgroup {
     display: flex;
     gap: .25rem;
+    position: relative;
     justify-content: space-between;
     padding-inline-end: .25rem;
+}
+#locationgroup > button{
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
+    font-size: 100%;
 }
 .create-form-datetime{
     display: flex;
@@ -114,6 +127,9 @@
     border-bottom: 1px solid rgb(100, 100, 100);
     font-size: clamp(.75rem, 4vw, 1.125rem);
 }
+.create-form-date-input:focus-visible, .create-form-time-input:focus-visible{
+    outline: 0;
+}
 .create-upload{
     padding: .5rem;
     display: flex;
@@ -125,7 +141,7 @@
     grid-template-columns: repeat(3,1fr);
     gap: 1rem;
 }
-.create-images > *{
+.create-images > label{
     width: 100%;
     max-width: 100px;
     aspect-ratio: 1.31/1;
@@ -140,6 +156,9 @@
     place-content: center;
     cursor: pointer;
 }
+.create-images > input{
+    display: none
+}
 .create-event-btn{
     cursor: pointer;
     border: none;
@@ -148,4 +167,27 @@
     font-size: clamp(0.75rem, 2.5vh, 2rem);
     font-weight: 550;
     cursor: pointer;
+}
+.create-event-error{
+    font-family: Inter;
+    font-weight: 600;
+    color: red;
+    grid-row: 1/2;
+    grid-column: 2/3;
+    align-self: center;
+    justify-self: center;
+}
+.create-event-success{
+    font-family: Inter;
+    font-weight: 600;
+    color: rgb(25, 194, 25);
+    grid-row: 1/2;
+    grid-column: 2/3;
+    align-self: center;
+    justify-self: center;
+}
+@media screen and (min-height: 1000px){
+    .main-content{
+        justify-content: space-around;
+    }
 }

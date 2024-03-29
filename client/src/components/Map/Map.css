@@ -1,0 +1,9 @@
+.map-container{
+    position: absolute;
+    border-radius: 5px;
+    height: 20vh;
+    min-height: 150px;
+    width: 100%;
+    top: 0;
+    transform: translateY(50%);
+}
