@@ -30,7 +30,7 @@
     width: 100%;
 }
 .event-content{
-    font-size: clamp(.75rem, 2.5vw, .9rem);
+    font-size: clamp(.75rem, 3vw, 1rem);
     padding-inline: 1ch;
     display: flex;
     flex-direction: column;
@@ -41,7 +41,7 @@
     justify-content: space-between;
 }
 .event-coming{
-    --avatar-size: 20px;
+    --avatar-size: clamp(20px,3.5vw,25px);
     --column-size: calc(var(--avatar-size) / 2);
     display: inline-grid;
     width: fit-content;
@@ -77,5 +77,16 @@
     }
     .event-interested-button{
         font-size: clamp(.75rem, 2.75vw, 1.25rem);
+    }
+}
+@media screen and (min-aspect-ratio: 1/0.8) {
+    .event-content {
+        font-size: clamp(.5rem, 2vw, .75rem);
+    }
+    .event-interested-button{
+        font-size: clamp(.5rem, 1.5vw, 1rem);
+    }
+    .event{
+        aspect-ratio: 1.2/1;
     }
 }

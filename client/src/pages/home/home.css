@@ -1,13 +1,15 @@
+:root{
+    --page-padding: clamp(1rem, 3vw, 1.55rem);
+    --nav-height: 10vh;
+}
 /* General */
 .home{
-    --nav-height: 10vh;
-    --home-padding: clamp(1rem, 3vw, 1.55rem);
     font-family: Inter;
     height: 100svh;
     position: relative;
     background-color:white;
-    padding-inline: calc(var(--home-padding) * 1.25);
-    padding-top: var(--home-padding);
+    padding-inline: calc(var(--page-padding) * 1.25);
+    padding-top: var(--page-padding);
     display: flex;
     flex-shrink: 1;
     flex-direction: column;
@@ -31,7 +33,7 @@
 }
 .home-header-content > h2{
     margin-bottom: 0;
-    font-size: clamp(1rem, 3.25vw, 2rem);
+    font-size: clamp(1.5rem,4vw,2.25rem)
 }
 .home-header-content > span{
     color: #767676;

@@ -9,11 +9,12 @@ import Nav from "../../components/Nav/Nav.js";
 import Search from "../../components/Search/Search.js";
 import "./home.css";
 
-const Home = () => {
+const Home = ({searchOpen, setSearchOpen}) => {
 
   const { user } = useContext(AuthContext);
   const [ settingsOpen, setSettingsOpen ] = useState(false);
   const settingsRef = useRef();
+  const searchRef = useRef();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["events"], 
@@ -34,7 +35,7 @@ const Home = () => {
         <SettingsIcon onClick={()=>{setSettingsOpen(true)}} className="home-header-icon"/>
         {settingsOpen && <Settings settingsRef={settingsRef} settingsOpen = {settingsOpen} setSettingsOpen={setSettingsOpen} /> }
       </div>
-      <Search />
+      {searchOpen && <Search searchRef={searchRef} searchOpen={searchOpen} setSearchOpen={setSearchOpen} />}
       <div className="home-categories-wrapper">
         <div className="home-categories-header">
           <h2>Categories</h2>
@@ -57,7 +58,7 @@ const Home = () => {
               ? "Something went wrong!"
               : isLoading
               ? "loading"
-              : data.length > 0 ? data.map((event) => <Event event={event} key={event.id} />)
+              : data?.length > 0 ? data.map((event) => <Event event={event} key={event.id} />)
               : "no events"
             }{/* 
             <Event />
@@ -72,6 +73,13 @@ const Home = () => {
           {/*this will most likely be a mapping or a component */}
           <div className="events-wrapper">
             {/*this will most likely be a mapping or a component */}
+            {error
+              ? "Something went wrong!"
+              : isLoading
+              ? "loading"
+              : data?.length > 0 ? data.map((event) => <Event event={event} key={event.id} />)
+              : "no events"
+            }
             {/*<Event />
             <Event />
             <Event />
@@ -80,7 +88,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Nav />
+      <Nav setSearchOpen={setSearchOpen} />
     </div>
   )
 }

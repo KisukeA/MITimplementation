@@ -37,7 +37,7 @@ export const getEvents = (req,res) =>{
 
     jwt.verify(token, "gjoretinolukasriste", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid");
-        const q1 = "SELECT * FROM Event WHERE datetime > NOW() ORDER BY datetime ASC";
+        const q1 = "SELECT * FROM Event WHERE creator_id != ? AND datetime > NOW() ORDER BY datetime ASC";
 
         return db.query(q1,[userInfo.id], (err,data)=>{
             if(err) return res.status(500).json(err);

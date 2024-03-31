@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass,faMapPin,faHouseUser,faUserNinja } from '@fortawesome/free-solid-svg-icons';
+import { AuthContext } from "../../context/AuthContext.js";
 import CreateEvent from "../../components/CreateEvent/CreateEvent.js";
 import { ReactComponent as NavCard } from '../../assets/navcard.svg';
 import "./Nav.css";
 
-const About = () => {
+const Nav = ({setSearchOpen}) => {
     
     const [ createEventOpen, setCreateEvenOpen ] = useState(false);
     const [ closing, setClosing ] = useState(false);
-    
+    const { user } = useContext(AuthContext);
+
     useEffect(() => {
       if (closing) {
           const timer = setTimeout(() => {
@@ -29,12 +32,22 @@ const About = () => {
             </button>
             <div className="nav-icons-container">
               <div>
-                <FontAwesomeIcon className="nav-icon" icon={faHouseUser} />
-                <FontAwesomeIcon className="nav-icon" icon={faMagnifyingGlass} />
+                <Link to={`/`} style={{ textDecoration: "none", color:"inherit"}}>
+                  <FontAwesomeIcon className="nav-icon" icon={faHouseUser} />
+                </Link>
+                {/* something has to change here, maybe even change the whole button to another thing, we'll see
+                it refreshes the page anytime we click on it because the prop setSearchOpen is passed from the app component to the home/profile */}
+                <Link to={`/`} style={{ textDecoration: "none", color:"inherit"}}>
+                  <label htmlFor="search-input" onClick={()=>setSearchOpen(true)}><FontAwesomeIcon className="nav-icon" icon={faMagnifyingGlass} /></label>
+                </Link>
               </div>
               <div>
-                <FontAwesomeIcon className="nav-icon" icon={faMapPin} />
-                <FontAwesomeIcon className="nav-icon" icon={faUserNinja} />
+                <Link to={`/`} style={{ textDecoration: "none", color:"inherit"}}>
+                  <FontAwesomeIcon className="nav-icon" icon={faMapPin} />
+                </Link>
+                <Link to={`/profile/${user.id}`} style={{ textDecoration: "none", color:"inherit"}}>
+                  <FontAwesomeIcon className="nav-icon" icon={faUserNinja} />
+                </Link>
                 </div>
             </div>
         </div>
@@ -43,4 +56,4 @@ const About = () => {
     )
   }
   
-export default About
+export default Nav

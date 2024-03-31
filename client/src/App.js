@@ -3,10 +3,11 @@ import { AuthContext } from "./context/AuthContext.js";
 import Login from "./pages/login/login.js";
 import Register from "./pages/register/register.js";
 import Profile from "./pages/profile/profile.js";
+import UserProfile from "./pages/userprofile/userprofile.js";
 import SingleEvent from "./pages/singleevent/singleevent.js";
 import Home from "./pages/home/home.js";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import './App.css';
 
 
@@ -19,6 +20,8 @@ function App() {
   }*/
   const { user } = useContext(AuthContext);
   const queryClient = new QueryClient();
+  
+  const [ searchOpen, setSearchOpen ] = useState(false);
 
   const Layout = () => {
     return (
@@ -48,11 +51,15 @@ function App() {
       children: [
         {
           index:true,
-          element: <Home />,
+          element: <Home setSearchOpen={setSearchOpen} searchOpen={searchOpen} />,
         },
         {
-          path: "/profile/:id",
-          element: <Profile />,
+          path: "/profile/:userId",
+          element: <Profile setSearchOpen={setSearchOpen} />,
+        },
+        {
+          path: "/userprofile/:userId",
+          element: <UserProfile setSearchOpen={setSearchOpen} />,
         },
         {
           path: "/singleevent/:eventId",
