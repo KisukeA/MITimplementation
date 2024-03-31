@@ -6,12 +6,12 @@ import { AuthContext } from "../../context/AuthContext.js";
 import { ReactComponent as SettingsIcon } from '../../assets/settingswhite.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import ProfileSettings from "../../components/ProfileSettings/ProfileSettings.js";
+import Settings from "../../components/Settings/Settings.js";
 import Event from "../../components/Event/Event.js";
 import Nav from "../../components/Nav/Nav.js";
-import "./profile.css";
+import "./userprofile.css";
 
-const Profile = ({setSearchOpen}) => {
+const UserProfile = ({setSearchOpen}) => {
   const event = {
     "id": 5,
     "description": "sdfa",
@@ -27,8 +27,7 @@ const Profile = ({setSearchOpen}) => {
 }
   const userId = parseInt(useLocation().pathname.split("/")[2]);
   const { user } = useContext(AuthContext);
-  const [ openProfileSettings, setOpenProfileSettings ] = useState(false);
-
+  const [following, setFollowing] = useState(false);
   const { isLoading, error, data } = useQuery({
     queryKey:["user",userId],
     queryFn: () =>{
@@ -40,32 +39,31 @@ const Profile = ({setSearchOpen}) => {
   });
 
     return (
-      <div className="profile">
-        <div className="profile-bg-circle">
-          <img className = "profile-picture"></img>
+      <div className="userprofile">
+        <div className="userprofile-bg-circle">
+          <img className = "userprofile-picture"></img>
           </div>
-        <div className = "profile-content">
-          <Link to={`/`} className="profile-back-icon">
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </Link>
-          <h1>PROFILE</h1>
-          <div className="profile-info">
-            <div className="profile-username-wrapper">
-              <span className="profile-username">{user.username}</span>
-              <span className="profile-user-desc">Profession/What are you?</span>
+        <div className = "userprofile-content">
+          <FontAwesomeIcon icon={faArrowLeft} className="userprofile-back-icon"/>
+          <h1>userprofile</h1>
+          <SettingsIcon className="userprofile-settings-icon"/>
+          <div className="userprofile-info">
+            <div className="userprofile-username-wrapper">
+              <span className="userprofile-username">{user.username}</span>
+              <span className="userprofile-user-desc">Profession/What are you?</span>
             </div>
-            <span className="profile-user-bio">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusmod tempor.</span>
-            <div className="profile-buttons">
-              <button className="profile-button">EDIT</button>
-              <button className="profile-button" onClick={()=>{setOpenProfileSettings(true)}}>SETTINGS</button>
+            <span className="userprofile-user-bio">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusmod tempor.</span>
+            <div className="userprofile-buttons">
+              <button className={`userprofile-button ${following?'following':''}`} onClick={()=>{setFollowing(!following)}}>{following?'FOLLOWING':'FOLLOW'}</button>
+              <button className="userprofile-button">MESSAGE</button>
             </div>
           </div>
-          <div className="profile-stats">
-            <span className="profile-stat-field">0 EVENTS</span>
-            <span className="profile-stat-field">0 FOLLOWERS</span>
-            <span className="profile-stat-field">0 FOLLOWING</span>
+          <div className="userprofile-stats">
+            <span className="userprofile-stat-field">0 EVENTS</span>
+            <span className="userprofile-stat-field">0 FOLLOWERS</span>
+            <span className="userprofile-stat-field">0 FOLLOWING</span>
           </div>
-          <div className="profile-events">
+          <div className="userprofile-events">
             <Event event={event} />
             <Event event={event} />
             <Event event={event} />
@@ -73,9 +71,8 @@ const Profile = ({setSearchOpen}) => {
           </div>
         </div>
         <Nav setSearchOpen={setSearchOpen} />
-        {openProfileSettings && <ProfileSettings setOpenProfileSettings={setOpenProfileSettings} />}
       </div>
     )
   }
   
-export default Profile
+export default UserProfile

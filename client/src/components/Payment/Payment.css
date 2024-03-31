@@ -1,0 +1,11 @@
+.payment{
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 50%;
+    height: 40%;
+    border: 1px solid black;
+    border-radius: 1rem;
+    background-color: white;
+    padding: .25rem;
+}

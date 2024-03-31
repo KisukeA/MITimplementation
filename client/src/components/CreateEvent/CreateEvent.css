@@ -24,14 +24,14 @@
 }
 /* must be after the previous */
 .closing{
-    animation: slide-out 500ms ease-in-out forwards;
+    animation: slide-out-CE 500ms ease-in-out forwards;
 }
 @keyframes slide-up {
     to{
         top:0%;
     }
 }
-@keyframes slide-out {
+@keyframes slide-out-CE {
     from{
         top:0%;
         left:0%;

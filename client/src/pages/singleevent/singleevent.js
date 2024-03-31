@@ -5,13 +5,16 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft,faLocationDot,faCalendarDays, faClock, faChampagneGlasses } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft,faLocationDot,faMapPin,faCalendarDays, faClock, faChampagneGlasses } from '@fortawesome/free-solid-svg-icons';
+import Payment from "../../components/Payment/Payment.js";
 import "./singleevent.css"; 
 
 const SingleEvent = () => {
     const { user } = useContext(AuthContext);
     // Access URL parameters
     const { eventId } = useParams();
+    const [ openPayment, setOpenPayment ] = useState(false);
+    const [ paid, setPaid ] = useState(false);
     const [ closingEvent, setClosingEvent ] = useState(false)  
     let navigate = useNavigate();
     useEffect(() => {
@@ -58,7 +61,13 @@ const SingleEvent = () => {
                                 </span>
                             </div>
                             <div>
-                            <FontAwesomeIcon icon={faChampagneGlasses} /><span className='single-category'> {event?.category} </span>
+                                <FontAwesomeIcon icon={faChampagneGlasses} /><span className='single-category'> {event?.category} </span>
+                            </div>
+                            <div style={{flexGrow:"1"}}>
+                                <FontAwesomeIcon icon={faMapPin} />
+                                <div style={{overflow:"auto", flexGrow:"1", maxWidth:"clamp(11ch,45vw,50ch)"}}>
+                                    <span className='single-category'> {event?.place} </span>
+                                </div>
                             </div>
                         </div>
                     </div> 
@@ -79,9 +88,11 @@ const SingleEvent = () => {
                     </div>
                 </div>
             </div>
-            <button className="single-event-btn full-screen last-row">
-                I WANT TO GO
+            <button className={`single-event-btn full-screen last-row ${paid?'paid':''}`} onClick = {()=>{setPaid(!paid)}}>
+                {/* onClick = {()=>{setOpenPayment(true)}}*/} 
+                {!paid?'I WANT TO GO':'INTERESTED'}
             </button>
+            {openPayment && <Payment setOpenPayment={setOpenPayment} event={event}/>}
         </div>
     )
   }
