@@ -40,6 +40,12 @@
     display: flex;
     justify-content: space-between;
 }
+.event-content-location > span{
+    display: inline-block;
+    height: fit-content;
+    max-height: 5vh;
+    overflow: auto;
+}
 .event-coming{
     --avatar-size: clamp(20px,3.5vw,25px);
     --column-size: calc(var(--avatar-size) / 2);
@@ -48,11 +54,10 @@
     grid-template-columns: repeat(5, var(--column-size));
 }
 .placeholder-img{
-    background-color: #828080;
+    background-color: #c0c0c0;
     width: var(--avatar-size);
     aspect-ratio: 1/1;
     border-radius: 100%;
-    outline: 1px solid red;
 }
 .event-interact{
     display: flex;
@@ -89,4 +94,7 @@
     .event{
         aspect-ratio: 1.2/1;
     }
+}
+.purple{
+    background-color: #BE5DE4;
 }

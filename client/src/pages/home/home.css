@@ -78,9 +78,24 @@
     aspect-ratio: 1/0.86;
     height: clamp(4rem,6.25vh,12rem);
     border-radius: 1rem;
+    border: none;
+    background: transparent;
     box-shadow: -2px 3px 5px 2.5px rgba(0, 0, 0, 0.1);
 }
-
+.category > svg{
+    width: 40%;
+    height: 40%;
+    color: #bb4ae7;
+}
+.category:focus-visible{
+    outline: 0;
+}
+.active-category {
+    background-color: rgb(50, 50, 50);
+}
+.active-category > svg{
+    color: red;
+}
 /* Main */
 .home-main{
     /* whole remaining space plus nav height so we can scroll above it */

@@ -1,5 +1,8 @@
 .payment{
     position: absolute;
+    color: #000;
+    font-size: clamp(.75rem,4vw,1.25rem);
+    font-weight: 500;
     inset: 0;
     margin: auto;
     width: 50%;
@@ -7,5 +10,5 @@
     border: 1px solid black;
     border-radius: 1rem;
     background-color: white;
-    padding: .25rem;
+    padding: .5rem;
 }
