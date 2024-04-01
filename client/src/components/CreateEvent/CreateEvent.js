@@ -18,6 +18,7 @@ const CreateEvent = ({closing, setClosing}) => {
         place:"",
         longitude:"",
         latitude:"",
+        category:"",
     })
     const [ error, setError ] = useState(null);
     const [ success, setSuccess ] = useState(false);
@@ -62,8 +63,9 @@ const CreateEvent = ({closing, setClosing}) => {
               place:"",
               longitude:"",
               latitude:"",
+              category:"",
           });
-          //queryClient.invalidateQueries(["events"]);
+          queryClient.invalidateQueries(["events","trending"]);
           setSuccess(true);
       },
     });
@@ -80,28 +82,40 @@ const CreateEvent = ({closing, setClosing}) => {
     return (
         <div className={`create-wrapper ${closing?"closing":""}`}>
             <button onClick={()=>{setClosing(true)}} className="create-exit-btn"><FontAwesomeIcon icon={faArrowLeft} /></button>
+            <div className="create-form-group category-group">
+                    <label htmlFor="create-form-category"> Category </label>
+                    <select id="create-form-category" className="create-form-input"
+                        name="category" value={eventData.category} onChange={updateEventData}>
+                        <option value="" disabled> Choose a category </option>
+                        <option value="party"> Party </option>
+                        <option value="festival"> Festival </option>
+                        <option value="concert"> Concert </option>
+                        <option value="bar"> Bar </option>
+                        <option value="sport"> Sport </option>
+                    </select>
+                </div>
             <div className="create-form main-content">
                 <div className="create-form-group">
-                    <label> Event Title </label>
+                    <label htmlFor="create-form-title"> Event Title </label>
                     <input className="create-form-input" placeholder="Event name"
-                    name="title" value={eventData.title} onChange={updateEventData}></input>
+                    name="title" id="create-form-title" value={eventData.title} onChange={updateEventData}></input>
                 </div>
                 <div className="create-form-datetime">
                     <div className="create-form-date">
-                        <label> Date </label>
+                        <label htmlFor="create-form-date"> Date </label>
                         <input className="create-form-date-input" type="date"
-                        name="date" value={eventData.date} onChange={updateEventData}></input>
+                        name="date" id = "create-form-date" value={eventData.date} onChange={updateEventData}></input>
                     </div>
                     <div className="create-form-time">
-                        <label> Time </label>
+                        <label htmlFor="create-form-time"> Time </label>
                         <input className="create-form-time-input" type="time"
-                        name="time" value={eventData.time} onChange={updateEventData}></input>
+                        name="time" id="create-form-time" value={eventData.time} onChange={updateEventData}></input>
                     </div>
                 </div>
                 <div className="create-form-group">
-                    <label> Description </label>
+                    <label htmlFor="create-form-description"> Description </label>
                     <input className="create-form-input" placeholder="Describe your event"
-                    name="description" value={eventData.description} onChange={updateEventData}></input>
+                    name="description" id = "create-form-description" value={eventData.description} onChange={updateEventData}></input>
                 </div>
                 <div className="create-form-group">
                     <label> Place </label>

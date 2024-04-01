@@ -12,32 +12,27 @@ import Nav from "../../components/Nav/Nav.js";
 import "./profile.css";
 
 const Profile = ({setSearchOpen}) => {
-  const event = {
-    "id": 5,
-    "description": "sdfa",
-    "place": "Vojkovo Nabrežje / Riva Vojko 32, 6000 Koper, Slovenia",
-    "category": "party",
-    "price": 0,
-    "creator_id": 10,
-    "title": "aaa",
-    "datetime": "2024-04-18T06:09:00.000Z",
-    "thumbnail": null,
-    "latitude": 45.548443,
-    "longitude": 13.738011
-}
+  const { isLoading:eLoading, error:eError, data:events } = useQuery({
+    queryKey: ["userevents"], 
+    queryFn: () => {
+    return makeRequest.get('/event/myevents').then((res)=>{
+      console.log(res.data);
+      return res.data;
+    })}
+  });
   const userId = parseInt(useLocation().pathname.split("/")[2]);
   const { user } = useContext(AuthContext);
   const [ openProfileSettings, setOpenProfileSettings ] = useState(false);
 
-  const { isLoading, error, data } = useQuery({
-    queryKey:["user",userId],
-    queryFn: () =>{
-      return makeRequest.get("/user/" + userId).then((res) => {
-        console.log(res.data);
-        return res.data;
-      })
-    }
-  });
+  // const { isLoading, error, data } = useQuery({
+  //   queryKey:["user",userId],
+  //   queryFn: () =>{
+  //     return makeRequest.get("/user/" + userId).then((res) => {
+  //       console.log(res.data);
+  //       return res.data;
+  //     })
+  //   }
+  // });
 
     return (
       <div className="profile">
@@ -61,18 +56,21 @@ const Profile = ({setSearchOpen}) => {
             </div>
           </div>
           <div className="profile-stats">
-            <span className="profile-stat-field">0 EVENTS</span>
+            <span className="profile-stat-field">{events?.length} EVENTS</span>
             <span className="profile-stat-field">0 FOLLOWERS</span>
             <span className="profile-stat-field">0 FOLLOWING</span>
           </div>
           <div className="profile-events">
-            <Event event={event} />
-            <Event event={event} />
-            <Event event={event} />
-            <Event event={event} />
+            {eError
+                ? "Something went wrong!"
+                : eLoading
+                ? "loading"
+                : events?.length > 0 ? events.map((event) => <Event profilePage={true} event={event} key={event.id} />)
+                : "no events"
+              }
           </div>
         </div>
-        <Nav setSearchOpen={setSearchOpen} />
+        <Nav profilePage={true} setSearchOpen={setSearchOpen} />
         {openProfileSettings && <ProfileSettings setOpenProfileSettings={setOpenProfileSettings} />}
       </div>
     )

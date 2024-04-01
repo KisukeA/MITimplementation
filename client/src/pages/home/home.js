@@ -1,8 +1,10 @@
-import { useContext, useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useContext, useEffect, useRef, useState } from "react";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios.js";
 import { AuthContext } from "../../context/AuthContext.js";
 import { ReactComponent as SettingsIcon } from '../../assets/settingsicon.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHandHoldingHeart,faBeerMugEmpty,faIcons,faDrum,faHandPointer,faStore,faFootball,faMartiniGlassCitrus } from '@fortawesome/free-solid-svg-icons';
 import Settings from "../../components/Settings/Settings.js";
 import Event from "../../components/Event/Event.js";
 import Nav from "../../components/Nav/Nav.js";
@@ -12,19 +14,28 @@ import "./home.css";
 const Home = ({searchOpen, setSearchOpen}) => {
 
   const { user } = useContext(AuthContext);
+  const [ category, setCategory ] = useState("");
   const [ settingsOpen, setSettingsOpen ] = useState(false);
   const settingsRef = useRef();
   const searchRef = useRef();
+  const queryClient = useQueryClient();
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ["events"], 
+    queryKey: ["events", category], 
     queryFn: () => {
-    return makeRequest.get('/event?upcoming=true').then((res)=>{
+    return makeRequest.get(`/event?upcoming=true&category=${category}`).then((res)=>{
       console.log(res.data);
       return res.data;
     })}
   });
-
+  const { isLoading:tIsLoading, error:tError, data:trending } = useQuery({
+    queryKey: ["trending", category], 
+    queryFn: () => {
+    return makeRequest.get(`/event?upcoming=false&category=${category}`).then((res)=>{
+      console.log(res.data);
+      return res.data;
+    })}
+  });
   return (
     <div className="home">
       <div className="home-header">
@@ -41,11 +52,39 @@ const Home = ({searchOpen, setSearchOpen}) => {
           <h2>Categories</h2>
           <span className="home-categories-show">Show all</span>
         </div>
-        <div className="home-categories-field">
-          <div className="category">
-            <img className="category-image"></img>
-          </div>
-          <div className="category"></div><div className="category"></div><div className="category"></div><div className="category"></div><div className="category"></div><div className="category"></div>
+        <div className="home-categories-field"> 
+          <button className={`category ${category==="party"?"active-category":""}`} 
+          name="party" onClick={()=>{setCategory(category==="party"?"":"party")}}>
+            <FontAwesomeIcon icon={faMartiniGlassCitrus} />
+          </button>
+          <button className={`category ${category==="festival"?"active-category":""}`} 
+          name="festival" onClick={()=>{setCategory(category==="festival"?"":"festival")}}>
+            <FontAwesomeIcon icon={faIcons} />
+          </button>
+          <button className={`category ${category==="concert"?"active-category":""}`} 
+          name="concert" onClick={()=>{setCategory(category==="concert"?"":"concert")}}>
+            <FontAwesomeIcon icon={faDrum} />
+          </button>
+          <button className={`category ${category==="rave"?"active-category":""}`} 
+          name="rave" onClick={()=>{setCategory(category==="rave"?"":"rave")}}>
+            <FontAwesomeIcon icon={faHandPointer} />
+          </button>
+          <button className={`category ${category==="charity"?"active-category":""}`} 
+          name="charity" onClick={()=>{setCategory(category==="charity"?"":"charity")}}>
+            <FontAwesomeIcon icon={faHandHoldingHeart} />
+          </button>
+          <button className={`category ${category==="sport"?"active-category":""}`} 
+          name="sport" onClick={()=>{setCategory(category==="sport"?"":"sport")}}>
+            <FontAwesomeIcon icon={faFootball} />
+          </button>
+          <button className={`category ${category==="fair"?"active-category":""}`} 
+          name="fair" onClick={()=>{setCategory(category==="fair"?"":"fair")}}>
+            <FontAwesomeIcon icon={faStore} />
+          </button>
+          <button className={`category ${category==="bar"?"active-category":""}`} 
+          name="bar" onClick={()=>{setCategory(category==="bar"?"":"bar")}}>
+            <FontAwesomeIcon icon={faBeerMugEmpty} />
+          </button>
           {/*this will most likely be a mapping or a component */}
         </div>
       </div>
@@ -54,18 +93,13 @@ const Home = ({searchOpen, setSearchOpen}) => {
           <h2 className="home-trending-header">Trending events</h2>
           <div className="events-wrapper">
             {/*this will most likely be a mapping or a component */}
-            {error
+            {tError
               ? "Something went wrong!"
-              : isLoading
+              : tIsLoading
               ? "loading"
-              : data?.length > 0 ? data.map((event) => <Event event={event} key={event.id} />)
+              : trending?.length > 0 ? trending.map((event) => <Event event={event} key={event.id} />)
               : "no events"
-            }{/* 
-            <Event />
-            <Event />
-            <Event />
-            <Event />
-            <Event />*/}
+            }
           </div>
         </div>
         <div className="home-upcoming">
@@ -80,11 +114,6 @@ const Home = ({searchOpen, setSearchOpen}) => {
               : data?.length > 0 ? data.map((event) => <Event event={event} key={event.id} />)
               : "no events"
             }
-            {/*<Event />
-            <Event />
-            <Event />
-            <Event />
-          <Event />*/}
           </div>
         </div>
       </div>

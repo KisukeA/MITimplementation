@@ -5,21 +5,22 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft,faLocationDot,faMapPin,faCalendarDays, faClock, faChampagneGlasses } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft,faMapPin,faCalendarDays,faClock,
+    faHandHoldingHeart,faBeerMugEmpty,faIcons,faDrum,faHandPointer,faStore,faFootball,faMartiniGlassCitrus } from '@fortawesome/free-solid-svg-icons';
 import Payment from "../../components/Payment/Payment.js";
 import "./singleevent.css"; 
 
 const SingleEvent = () => {
+    //!!!IMPORTANT!!! MOST LIKELY WILL MAKE THIS A COMPONENT INSTEAD OF A PAGE, XDXDXD
     const { user } = useContext(AuthContext);
     // Access URL parameters
     const { eventId } = useParams();
     const [ openPayment, setOpenPayment ] = useState(false);
-    const [ paid, setPaid ] = useState(false);
     const [ closingEvent, setClosingEvent ] = useState(false)  
-    let navigate = useNavigate();
+    const navigate = useNavigate();
+    let categoryIcon;
     useEffect(() => {
         if (closingEvent) {
-            
             const timer = setTimeout(() => {
                 setClosingEvent(false);
                 return navigate('/');
@@ -31,11 +32,43 @@ const SingleEvent = () => {
         queryKey: ["singleevent",eventId], 
         queryFn: () => {
         return makeRequest.get(`/event/single?eventId=${eventId}`).then((res)=>{
-          console.log(res.data);
+            console.log(res.data)
+          return res.data;
+        })}
+    });
+    const { isLoading:gIsLoading, error:gError, data:going } = useQuery({
+        queryKey: ["eventgoing",eventId], 
+        queryFn: () => {
+        return makeRequest.get(`/ticket/going?eventId=${eventId}`).then((res)=>{
           return res.data;
         })}
       });
-
+      switch (event?.category) {
+        case "party":
+            categoryIcon = faMartiniGlassCitrus;
+            break;
+        case "festival":
+            categoryIcon = faIcons;
+            break;
+        case "concert":
+            categoryIcon = faDrum;
+            break;
+        case "bar":
+            categoryIcon = faBeerMugEmpty;
+            break;
+        case "charity":
+            categoryIcon = faHandHoldingHeart;
+            break;
+        case "sport":
+            categoryIcon = faFootball;
+            break;
+        case "rave":
+            categoryIcon = faHandPointer;
+            break;
+        case "fair":
+            categoryIcon = faStore;
+            break;
+      }
     return (
         <div className={`single-wrapper ${closingEvent?'closingEvent':''}`}>
             <button className="single-exit-btn" onClick={()=>{setClosingEvent(true)}}>
@@ -61,7 +94,7 @@ const SingleEvent = () => {
                                 </span>
                             </div>
                             <div>
-                                <FontAwesomeIcon icon={faChampagneGlasses} /><span className='single-category'> {event?.category} </span>
+                                {categoryIcon && <FontAwesomeIcon icon={categoryIcon} />}<span className='single-category'> {event?.category} </span>
                             </div>
                             <div style={{flexGrow:"1"}}>
                                 <FontAwesomeIcon icon={faMapPin} />
@@ -80,17 +113,27 @@ const SingleEvent = () => {
                 <div className="single-going">
                     <label> People going </label>
                     <div className="single-avatars">
-                      <div className="going-img"></div>
-                      <div className="going-img"></div>
-                      <div className="going-img"></div>
-                      <div className="going-img"></div>
-                      <div className="going-img"></div>
+                      {gIsLoading? "loading":
+                       gError? "error":
+                       going.length > 0 ?
+                        going.map((user, index)=>(
+                        <>{parseInt(index) < 5 ? //only 5 will be previewed
+                            (index===4 && going.length - 5 > 0) ? //if there is more than 5
+                            //the 5th one will say that there are X more
+                            <span key={index} className='going-img and-more'>+{going.length - 5}</span>
+                            : 
+                            <img className='going-img' key={index}  
+                              src={`/upload/${user.profile_picture?user.profile_picture:'default.png'}`}>
+                            </img>
+                            : <></> //else we don't display it
+                        }</>)): 
+                       <p style={{margin:"0"}}>none, yet</p>
+                      }
                     </div>
                 </div>
             </div>
-            <button className={`single-event-btn full-screen last-row ${paid?'paid':''}`} onClick = {()=>{setPaid(!paid)}}>
-                {/* onClick = {()=>{setOpenPayment(true)}}*/} 
-                {!paid?'I WANT TO GO':'INTERESTED'}
+            <button className={`single-event-btn full-screen last-row ${event?.paid?'paid':''}`} onClick = {()=>{if(!event?.paid)setOpenPayment(true)}}> 
+                {!event?.paid?'I WANT TO GO':'INTERESTED'}
             </button>
             {openPayment && <Payment setOpenPayment={setOpenPayment} event={event}/>}
         </div>
