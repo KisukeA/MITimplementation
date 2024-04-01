@@ -1,8 +1,10 @@
 import express from "express";
-import { } from "../controllers/ticket.js";
+import { addTicket, getGoing } from "../controllers/ticket.js";
 
 const router = express.Router()
 
-router.get("/", )
+router.get("/", );
+router.get("/going", getGoing);
+router.post("/", addTicket);
 
 export default router
