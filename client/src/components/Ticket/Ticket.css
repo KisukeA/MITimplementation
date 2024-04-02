@@ -1,0 +1,10 @@
+.ticket{
+    color: #000;
+    font-size: clamp(.75rem,4vw,1.25rem);
+    font-weight: 500;
+    width: 350px;
+    height: 100px;
+    border-radius: 1rem;
+    padding: .5rem;
+    background-color: hotpink;
+}

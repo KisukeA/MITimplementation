@@ -4,6 +4,7 @@
     gap: clamp(.5rem,5vw,2.5rem);
     padding-block: .5rem;
     font-size: clamp(1rem, 2.75vw, 1.75rem);
+    position: relative;
 }
 .search-field{
     width: 100%;
@@ -21,4 +22,16 @@
 }
 .search-input:focus-visible{
     outline: none;
+}
+.search-overlay{
+    height: max(30vh,300px);
+    box-sizing: border-box;
+    width: 100%;
+    background-color: red;
+    position: absolute;
+    top: 100%;
+    z-index: 3;
+    border-radius: 1rem;
+    padding: .5rem;
+    color: white;
 }

@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet, Navigate, useParams } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext.js";
 import Login from "./pages/login/login.js";
 import Register from "./pages/register/register.js";
@@ -20,8 +20,6 @@ function App() {
   }*/
   const { user } = useContext(AuthContext);
   const queryClient = new QueryClient();
-  
-  const [ searchOpen, setSearchOpen ] = useState(false);
 
   const Layout = () => {
     return (
@@ -39,7 +37,20 @@ function App() {
     }
     return children;
   };
-
+  const ProtectedProfile = ({ children }) => {
+    const { userId } = useParams();
+    if (user?.id.toString() !== userId) {
+      return <Navigate to="/" />;
+    }
+    return children;
+  };
+  const ProtectedUserProfile = ({ children }) => {
+    const { userId } = useParams();
+    if (user?.id.toString() === userId) {
+      return <Navigate to={`/profile/${userId}`} />;
+    }
+    return children;
+  };
   const router = createBrowserRouter([
     {
       path: "/",
@@ -51,15 +62,23 @@ function App() {
       children: [
         {
           index:true,
-          element: <Home setSearchOpen={setSearchOpen} searchOpen={searchOpen} />,
+          element: <Home />,
         },
         {
           path: "/profile/:userId",
-          element: <Profile setSearchOpen={setSearchOpen} />,
+          element: (
+            <ProtectedProfile>
+              <Profile />
+            </ProtectedProfile>
+          ),
         },
         {
           path: "/userprofile/:userId",
-          element: <UserProfile setSearchOpen={setSearchOpen} />,
+          element: (
+            <ProtectedUserProfile>
+              <UserProfile />
+            </ProtectedUserProfile>
+          ),
         },
         {
           path: "/singleevent/:eventId",

@@ -11,20 +11,19 @@ import Nav from "../../components/Nav/Nav.js";
 import Search from "../../components/Search/Search.js";
 import "./home.css";
 
-const Home = ({searchOpen, setSearchOpen}) => {
+const Home = () => {
 
   const { user } = useContext(AuthContext);
   const [ category, setCategory ] = useState("");
   const [ settingsOpen, setSettingsOpen ] = useState(false);
   const settingsRef = useRef();
-  const searchRef = useRef();
   const queryClient = useQueryClient();
+  const [ searchOpen, setSearchOpen ] = useState(false);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["events", category], 
     queryFn: () => {
     return makeRequest.get(`/event?upcoming=true&category=${category}`).then((res)=>{
-      console.log(res.data);
       return res.data;
     })}
   });
@@ -32,6 +31,13 @@ const Home = ({searchOpen, setSearchOpen}) => {
     queryKey: ["trending", category], 
     queryFn: () => {
     return makeRequest.get(`/event?upcoming=false&category=${category}`).then((res)=>{
+      return res.data;
+    })}
+  });
+  const { isLoading:fIsLoading, error:fError, data:favorite } = useQuery({
+    queryKey: ["favorite", category], 
+    queryFn: () => {
+    return makeRequest.get(`/event/favorite?category=${category}`).then((res)=>{
       console.log(res.data);
       return res.data;
     })}
@@ -46,7 +52,7 @@ const Home = ({searchOpen, setSearchOpen}) => {
         <SettingsIcon onClick={()=>{setSettingsOpen(true)}} className="home-header-icon"/>
         {settingsOpen && <Settings settingsRef={settingsRef} settingsOpen = {settingsOpen} setSettingsOpen={setSettingsOpen} /> }
       </div>
-      {searchOpen && <Search searchRef={searchRef} searchOpen={searchOpen} setSearchOpen={setSearchOpen} />}
+      {searchOpen && <Search searchOpen={searchOpen} setSearchOpen={setSearchOpen} />}
       <div className="home-categories-wrapper">
         <div className="home-categories-header">
           <h2>Categories</h2>
@@ -116,8 +122,22 @@ const Home = ({searchOpen, setSearchOpen}) => {
             }
           </div>
         </div>
+        <div className="home-favorite">
+          <h2 className="home-favorite-header">Favorite events</h2>
+          {/*this will most likely be a mapping or a component */}
+          <div className="events-wrapper">
+            {/*this will most likely be a mapping or a component */}
+            {fError
+              ? "Something went wrong!"
+              : fIsLoading
+              ? "loading"
+              : favorite?.length > 0 ? favorite.map((event) => <Event event={event} key={event.id} />)
+              : "no events"
+            }
+          </div>
+        </div>
       </div>
-      <Nav setSearchOpen={setSearchOpen} />
+      <Nav setSearchOpen={setSearchOpen} homePage={true} />
     </div>
   )
 }

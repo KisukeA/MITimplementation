@@ -108,14 +108,9 @@
 .home-main::-webkit-scrollbar { 
     display: none;
 }
-.home-trending > h2{
-    margin: 0;
-    font-size: clamp(1.5rem,4vw,2.25rem);
-}
-.home-upcoming > h2{
+.home-trending > h2, .home-upcoming > h2 ,.home-favorite > h2{
     margin: 0;
     font-size: clamp(1.5rem,4vw,2.25rem);
 }
 
-/* Nav (its gon be a component prolly */
 

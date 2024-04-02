@@ -34,16 +34,17 @@ const Event = ({event, profilePage}) => {
               {gIsLoading? "loading":
               gError?"error":
               going.map((user, index)=>(
-                <>{parseInt(index) < 5 && //only 5 will be previewed
+                <div key={index}>
+                  {parseInt(index) < 5 && //only 5 will be previewed
                     (index===4 && going.length - 5 > 0) ? //if there is more than 5
                     //the 5th one will say that there are X more
-                    <span key={index} className='placeholder-img and-more'>+{going.length - 5}</span>
+                    <span className='placeholder-img and-more'>+{going.length - 5}</span>
                     : 
-                    <img className='placeholder-img' key={index}
+                    <img className='placeholder-img'
                       src={`/upload/${user.profile_picture?user.profile_picture:'default.png'}`}>
                     </img>
                   }
-                </>
+                </div>
               ))}
             </div>
             <Link to={`/singleevent/${event.id}`} style={{ textDecoration: "none", color:"inherit"}}>
