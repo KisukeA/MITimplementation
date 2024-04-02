@@ -11,6 +11,7 @@
     color: white;
     font-size: clamp(3rem,11vw,5rem);
     position: absolute;
+    z-index: 1;
     left: 50%;
     top: 0;
     transform: translate(-50%, -50%);
@@ -48,6 +49,7 @@
     --nav-padding: clamp(1rem, 7vw ,6rem);
     padding-inline: var(--nav-padding);
     position: absolute;
+    z-index: 0;
     display: flex;
     justify-content: space-between;
     width: calc(100% - calc(4 * var(--nav-padding)));

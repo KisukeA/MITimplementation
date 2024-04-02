@@ -7,7 +7,7 @@ import CreateEvent from "../../components/CreateEvent/CreateEvent.js";
 import { ReactComponent as NavCard } from '../../assets/navcard.svg';
 import "./Nav.css";
 
-const Nav = ({setSearchOpen, profilePage}) => {
+const Nav = ({setSearchOpen, homePage}) => {
     
     const [ createEventOpen, setCreateEvenOpen ] = useState(false);
     const [ closing, setClosing ] = useState(false);
@@ -22,7 +22,19 @@ const Nav = ({setSearchOpen, profilePage}) => {
           return () => clearTimeout(timer);
       }
     }, [closing]);
-
+    const smoothScroll = (e) =>{
+      e.preventDefault(); // Prevent the default anchor link behavior
+    
+      const container = document.getElementById('tickets-container');
+      const target = document.getElementById('tickets');
+    
+      if (container && target) {
+        container.scrollTo({
+          top: target.offsetTop - container.offsetTop, // Adjust if you have additional offsets
+          behavior: 'smooth'
+        });
+      }
+    }
     return (<>
         <div className="nav">
             <NavCard className="nav-card"/>
@@ -35,14 +47,16 @@ const Nav = ({setSearchOpen, profilePage}) => {
                 <Link to={`/`} style={{ textDecoration: "none", color:"inherit"}}>
                   <FontAwesomeIcon className="nav-icon" icon={faHouseUser} />
                 </Link>
-                {/* something has to change here, maybe even change the whole button to another thing, we'll see
-                it refreshes the page anytime we click on it because the prop setSearchOpen is passed from the app component to the home/profile */}
-                {profilePage?
-                  <Link style={{ textDecoration: "none", color:"inherit"}}>
-                    <FontAwesomeIcon icon={faTicket} />
-                  </Link>:
+                {/* done, changed <3 */}
+                {!homePage?
+                  // <Link style={{ textDecoration: "none", color:"inherit"}}>
+                  //   <FontAwesomeIcon icon={faTicket} />
+                  // </Link>
+                  <a href = "#tickets" onClick={smoothScroll} style={{ textDecoration: "none", color:"inherit"}}>
+                    <FontAwesomeIcon className="nav-icon" icon={faTicket} />
+                  </a>:
                   <Link to={`/`} style={{ textDecoration: "none", color:"inherit"}}>
-                    <label htmlFor="search-input" onClick={()=>setSearchOpen(true)}><FontAwesomeIcon className="nav-icon" icon={faMagnifyingGlass} /></label>
+                    <label htmlFor="search-input" onClick={()=>setSearchOpen(prev=>!prev)}><FontAwesomeIcon className="nav-icon" icon={faMagnifyingGlass} /></label>
                   </Link>
                 }
               </div>

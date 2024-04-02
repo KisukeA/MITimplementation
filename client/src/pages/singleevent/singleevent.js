@@ -117,16 +117,16 @@ const SingleEvent = () => {
                        gError? "error":
                        going.length > 0 ?
                         going.map((user, index)=>(
-                        <>{parseInt(index) < 5 ? //only 5 will be previewed
+                        <div  key={index}>{parseInt(index) < 5 ? //only 5 will be previewed
                             (index===4 && going.length - 5 > 0) ? //if there is more than 5
                             //the 5th one will say that there are X more
-                            <span key={index} className='going-img and-more'>+{going.length - 5}</span>
+                            <span className='going-img and-more'>+{going.length - 5}</span>
                             : 
-                            <img className='going-img' key={index}  
+                            <img className='going-img'  
                               src={`/upload/${user.profile_picture?user.profile_picture:'default.png'}`}>
                             </img>
                             : <></> //else we don't display it
-                        }</>)): 
+                        }</div>)): 
                        <p style={{margin:"0"}}>none, yet</p>
                       }
                     </div>

@@ -6,6 +6,7 @@ import favoritesRoutes from "./routes/favorites.js";
 import ticketRoutes from "./routes/ticket.js";
 import transactionsRoutes from "./routes/transactions.js";
 import userRoutes from "./routes/user.js";
+import followRoutes from "./routes/follow.js";
 
 import cors from "cors"
 import cookieParser from "cookie-parser"
@@ -28,6 +29,7 @@ app.use("/server/favorites", favoritesRoutes)
 app.use("/server/ticket", ticketRoutes)
 app.use("/server/transactions", transactionsRoutes)
 app.use("/server/user", userRoutes)
+app.use("/server/follow", followRoutes)
 
 app.listen(process.env.PORT || port, ()=>{
     console.log("lessgo")

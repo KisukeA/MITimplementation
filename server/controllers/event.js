@@ -46,8 +46,6 @@ export const getEvents = (req,res) =>{
         WHERE creator_id != ? 
         ${!!category?'AND category = ?':''}
         AND datetime > NOW() ORDER BY going_count DESC`;
-        console.log(upcoming?q1:q2);
-        console.log(!!category?[userInfo.id, category]:[userInfo.id]);
         return db.query(upcoming?q1:q2 ,!!category?[userInfo.id, category]:[userInfo.id], (err,data)=>{
             if(err) return res.status(500).json(err);
             return res.status(200).json(data);
@@ -61,7 +59,7 @@ export const getSingleEvent = (req,res) => {
     jwt.verify(token, "gjoretinolukasriste", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid");
         
-        const q = "SELECT e.*, t.id as paid FROM Event e LEFT JOIN Ticket t ON e.id = t.event_id AND t.holder_id = ? WHERE e.id = ? ";
+        const q = "SELECT e.*, t.holder_id as paid FROM Event e LEFT JOIN Ticket t ON e.id = t.event_id AND t.holder_id = ? WHERE e.id = ? ";
         
         return db.query(q,[userInfo.id, req.query.eventId], (err,data)=>{
             if(err) return res.status(500).json(err);
@@ -81,6 +79,48 @@ export const getMyEvents = (req,res) => {
         return db.query(q,[userInfo.id], (err,data)=>{
             if(err) return res.status(500).json(err);
             return res.status(200).json(data);
+        })
+    })
+}
+export const getUserEvents = (req,res) => {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json("Not logged in!");
+
+    jwt.verify(token, "gjoretinolukasriste", (err) => {
+    if (err) return res.status(403).json("Token is not valid");
+        const q = "SELECT * FROM Event WHERE creator_id = ? ";
+        return db.query(q,[req.params.id], (err,data)=>{
+            if(err) return res.status(500).json(err);
+            return res.status(200).json(data);
+        })
+    })
+}
+export const getFavoriteEvents = (req,res) => {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json("Not logged in!");
+
+    jwt.verify(token, "gjoretinolukasriste", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid");
+        const q = `SELECT e.* FROM Event e WHERE e.creator_id IN 
+        (SELECT followed_id FROM Following WHERE follower_id = ?) ORDER BY e.datetime ASC`;
+        return db.query(q,[userInfo.id], (err,data)=>{
+            if(err) return res.status(500).json(err);
+            return res.status(200).json(data);
+        })
+    })
+}
+export const getSearchedEvents = (req,res) => {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json("Not logged in!");
+    jwt.verify(token, "gjoretinolukasriste", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid");
+    const keyword = req.query.keyword;
+    const filter = req.query.filter;
+    const q = `SELECT * FROM Event 
+    WHERE ${filter} ${(filter==="title" || filter==="description")?`LIKE '%${keyword}%'`:"= ?"}`;
+    return db.query(q,(filter==="title" || filter==="description")?[]:[keyword], (err,data)=>{
+        if(err) return res.status(500).json(err);
+        return res.status(200).json(data);
         })
     })
 }

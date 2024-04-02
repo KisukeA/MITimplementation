@@ -3,6 +3,7 @@
     --ps-indent:5%;
     background: linear-gradient(90deg, #E65D7C 0%, #BF5EE4 100%);
     position: absolute;
+    z-index: 5;
     inset: 0;
     left: 100%;
     animation: slide-in-PS 400ms forwards;
