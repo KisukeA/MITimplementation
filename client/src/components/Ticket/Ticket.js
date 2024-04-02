@@ -4,31 +4,32 @@ import { makeRequest } from "../../axios.js";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../context/AuthContext.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faSquareEnvelope } from '@fortawesome/free-solid-svg-icons';
 import "./Ticket.css";
 const Ticket = ({ticket}) => {
 
-    // const queryClient = useQueryClient();
-    // const mutation = useMutation({
-    //   mutationFn: (ticket) => {
-    //     return makeRequest.post('/ticket', ticket);
-    //   },
-    //   onSuccess: (data) => {
-    //     setOpenTicket(false);
-    //     //setSuccesfullPay(true) maybe add some notification 
-    //     queryClient.invalidateQueries(["singleevent",event.id]);
-    //   },
-    // });
-    const handlePay =  () => {
-        // mutation.mutate({ eventId:event.id,
-        //   price:event.price, eventCreator: event.creator_id });
-    }
+    const { user } = useContext(AuthContext);
+    const [openEmailPopup, setOpenEmailPopup] = useState(false);
+
     return (
       <div className="ticket">
-        <button ><FontAwesomeIcon icon={faArrowLeft} /></button>
-        <br></br>
-        <span>Price </span>
-        <button onClick={handlePay}>pay</button>
+        {/* <button ><FontAwesomeIcon icon={faArrowLeft} /></button>
+        <br></br> */}
+        <span><Link to={`/singleevent/${ticket.id}`}>{ticket.title}</Link></span>
+        <span>{new Date(ticket.datetime.split('T')[0]).toDateString().split(" ").slice(1,).join(" ")}</span>
+        <div className='ticket-location'><span>{ticket.place}</span></div>
+        {/* prolly don't need this check here to={`/${ticket.id===user.id?'':'user'}profile/${ticket.id}`} */}
+        <span className='ticket-email'>
+          <Link to={`/userprofile/${ticket.id}`}>
+            {ticket.username} 
+          </Link> 
+          <FontAwesomeIcon icon={faSquareEnvelope} onClick={()=>{setOpenEmailPopup(prev=>!prev)}}/>
+          {openEmailPopup && <div className='ticket-email-popup'>
+            {ticket.email?ticket.email:"no email"}
+          </div>}
+        </span>
+        <span>Price: {ticket.price}€</span>
+        <button >View</button>
       </div>
     )
   }

@@ -38,7 +38,6 @@ const Home = () => {
     queryKey: ["favorite", category], 
     queryFn: () => {
     return makeRequest.get(`/event/favorite?category=${category}`).then((res)=>{
-      console.log(res.data);
       return res.data;
     })}
   });
@@ -62,34 +61,42 @@ const Home = () => {
           <button className={`category ${category==="party"?"active-category":""}`} 
           name="party" onClick={()=>{setCategory(category==="party"?"":"party")}}>
             <FontAwesomeIcon icon={faMartiniGlassCitrus} />
+            Party
           </button>
           <button className={`category ${category==="festival"?"active-category":""}`} 
           name="festival" onClick={()=>{setCategory(category==="festival"?"":"festival")}}>
             <FontAwesomeIcon icon={faIcons} />
+            Fest
           </button>
           <button className={`category ${category==="concert"?"active-category":""}`} 
           name="concert" onClick={()=>{setCategory(category==="concert"?"":"concert")}}>
             <FontAwesomeIcon icon={faDrum} />
+            Concert
           </button>
           <button className={`category ${category==="rave"?"active-category":""}`} 
           name="rave" onClick={()=>{setCategory(category==="rave"?"":"rave")}}>
             <FontAwesomeIcon icon={faHandPointer} />
+            Rave
           </button>
           <button className={`category ${category==="charity"?"active-category":""}`} 
           name="charity" onClick={()=>{setCategory(category==="charity"?"":"charity")}}>
             <FontAwesomeIcon icon={faHandHoldingHeart} />
+            Charity
           </button>
           <button className={`category ${category==="sport"?"active-category":""}`} 
           name="sport" onClick={()=>{setCategory(category==="sport"?"":"sport")}}>
             <FontAwesomeIcon icon={faFootball} />
+            Sport
           </button>
           <button className={`category ${category==="fair"?"active-category":""}`} 
           name="fair" onClick={()=>{setCategory(category==="fair"?"":"fair")}}>
             <FontAwesomeIcon icon={faStore} />
+            Fair
           </button>
           <button className={`category ${category==="bar"?"active-category":""}`} 
           name="bar" onClick={()=>{setCategory(category==="bar"?"":"bar")}}>
             <FontAwesomeIcon icon={faBeerMugEmpty} />
+            Bar
           </button>
           {/*this will most likely be a mapping or a component */}
         </div>

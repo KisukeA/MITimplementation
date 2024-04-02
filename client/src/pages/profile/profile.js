@@ -21,7 +21,6 @@ const Profile = () => {
     queryKey: ["myevents"], 
     queryFn: () => {
     return makeRequest.get('/event/myevents').then((res)=>{
-      console.log(res.data);
       return res.data;
     })}
   });
@@ -29,7 +28,6 @@ const Profile = () => {
     queryKey: ["tickets"], 
     queryFn: () => {
     return makeRequest.get('/ticket/').then((res)=>{
-      console.log(res.data);
       return res.data;
     })}
   });
@@ -37,7 +35,6 @@ const Profile = () => {
     queryKey:["follow", userId],
     queryFn: () =>{
       return makeRequest.get("/follow").then((res) => {
-        console.log(res.data);
         return res.data;
       })
     }
@@ -79,7 +76,7 @@ const Profile = () => {
                   : "no events"
               }
             </div>
-            <div className="tickets" id = "tickets">
+            <div className="profile-tickets" id = "tickets">
               {tError
                   ? "Something went wrong!"
                   : tLoading

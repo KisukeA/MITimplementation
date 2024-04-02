@@ -6,9 +6,31 @@
     inset: 0;
     margin: auto;
     width: 50%;
-    height: 40%;
+    height: fit-content;
     border: 1px solid black;
     border-radius: 1rem;
     background-color: white;
-    padding: .5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: .5rem;
+}
+.payment > span{
+    width: fit-content;
+    margin-inline: auto;
+}
+.payment-back{
+    border: none;
+    padding: 0;
+    font-size: clamp(1rem,5vw,1.55rem);
+    background-color: transparent;
+    align-self: flex-start;
+}
+.payment-btn{
+    border: none;
+    background-color: #EB5253;;
+    border-radius: 1rem;
+    padding-block: 4px;
+    color: white;
 }

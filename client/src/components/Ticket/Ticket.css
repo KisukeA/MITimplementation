@@ -1,10 +1,75 @@
 .ticket{
-    color: #000;
-    font-size: clamp(.75rem,4vw,1.25rem);
+    --ticket-fs: clamp(.75rem,4vw,1.5rem);
+    --ticket-padding: clamp(.75rem,2vw,1.125rem);
+    color: white;
+    font-size: var(--ticket-fs);
     font-weight: 500;
-    width: 350px;
-    height: 100px;
+    width: fit-content;
+    height: fit-content;
     border-radius: 1rem;
+    padding: var(--ticket-padding);
+    background-color: #E65D7C;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    
+}
+.ticket-location{
+    max-width: 15ch;
+    overflow-x: auto;
+    padding-block-end: calc(var(--ticket-fs) / 3);
+}
+.ticket-location::-webkit-scrollbar {
+    height: calc(var(--ticket-fs) / 2);
+    
+  }
+.ticket-location::-webkit-scrollbar-thumb{
+    background:  #BE5DE4;
+    border-radius: 100vw;
+}
+.ticket-location::-webkit-scrollbar-thumb:hover {
+    background: #9d05d8;
+  }
+.ticket-location::-webkit-scrollbar-track{
+    background: white;
+    border-radius: 100vw;
+}
+
+.ticket-location > span {
+    display: block;
+    width:max-content;
+    padding-inline-end: .125rem;
+}
+.ticket span a {
+    text-decoration: none;
+    color: black;
+}
+.ticket-email{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+.ticket > button {
+    border-radius: .5rem;
+    border: none;
+    background-color: white;
+    color: #BE5DE4;
+    padding-block: .25rem;
+    font-weight: 600;
+}
+.ticket-email-popup{
+    background-color: white;
+    color: black;
+    border-radius: 100vw;
+    position: absolute;
+    z-index: 1;
     padding: .5rem;
-    background-color: hotpink;
+    bottom: calc(100% + 3px);
+    right: 0;
+    font-size: calc(var(--ticket-fs) / 1.75);
+    max-width: calc(100% - 2 * var(--ticket-padding));
+    overflow-x: auto;
+}
+.ticket-email-popup::-webkit-scrollbar{
+    display: none;
 }

@@ -3,7 +3,7 @@ import { useEffect, useContext, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext.js";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft,faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft,faLocationDot,faEuroSign } from '@fortawesome/free-solid-svg-icons';
 import { makeRequest } from "../../axios.js" ;
 import Map from "../Map/Map.js";
 import "./CreateEvent.css";
@@ -19,6 +19,7 @@ const CreateEvent = ({closing, setClosing}) => {
         longitude:"",
         latitude:"",
         category:"",
+        price:null,
     })
     const [ error, setError ] = useState(null);
     const [ success, setSuccess ] = useState(false);
@@ -64,6 +65,7 @@ const CreateEvent = ({closing, setClosing}) => {
               longitude:"",
               latitude:"",
               category:"",
+              price:null,
           });
           queryClient.invalidateQueries(["events","trending"]);
           setSuccess(true);
@@ -117,13 +119,23 @@ const CreateEvent = ({closing, setClosing}) => {
                     <input className="create-form-input" placeholder="Describe your event"
                     name="description" id = "create-form-description" value={eventData.description} onChange={updateEventData}></input>
                 </div>
-                <div className="create-form-group">
-                    <label> Place </label>
-                    <div className="create-form-input" id = "locationgroup">
-                        <input id = "locationinput" placeholder="Event location" disabled
-                        name="place" value={eventData.place} onChange={updateEventData}></input>
-                        <button onClick={()=>{console.log("ds");setOpenLocation(true)}} htmlFor="locationinput"><FontAwesomeIcon icon={faLocationDot} /></button>
-                        {openLocation && <Map locationRef={locationRef} setEventData={setEventData} setOpenLocation={setOpenLocation} />}
+                <div style={{display:"flex"}}>
+                    <div className="create-form-group half-row">
+                        <label> Place </label>
+                        <div className="create-form-input" id = "locationgroup">
+                            <input id = "locationinput" placeholder="Event location" disabled
+                            name="place" value={eventData.place} onChange={updateEventData}></input>
+                            <button onClick={()=>{setOpenLocation(true)}} htmlFor="locationinput"><FontAwesomeIcon icon={faLocationDot} /></button>
+                            {openLocation && <Map locationRef={locationRef} setEventData={setEventData} setOpenLocation={setOpenLocation} />}
+                        </div>
+                    </div>
+                    <div className="create-form-group half-row">
+                        <label> Price </label>
+                        <div className="create-form-input price-group">
+                            <input placeholder="Ticket price" id="input-price" className="create-form-price-input"
+                            name="price" type="number" value={eventData.price || ""} onChange={updateEventData}></input>
+                            <label htmlFor="input-price" ><FontAwesomeIcon icon={faEuroSign} /></label >
+                        </div>
                     </div>
                 </div>
                 <div className="create-upload">

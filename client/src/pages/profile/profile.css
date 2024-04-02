@@ -102,6 +102,11 @@
     text-align: center;
     font-size: clamp(.5rem,2vh,1rem);
 }
+.profile-user-bio{
+    --bio-padding: clamp(.75rem,2vh,1.25rem);
+    overflow-y: auto;
+    margin-block: var(--bio-padding);
+}
 .profile-buttons{
     display: flex;
     gap: 1rem;
@@ -112,9 +117,8 @@
     border: 3px solid #FF6C6C;
     border-radius: 100vw;
     padding: clamp(.5rem,1vh,1rem);
-    line-height: clamp(.75rem,2vh,1.5rem);
     font-size: clamp(.75rem,2vh,1.5rem);
-    font-weight: 600;
+    font-weight: 700;
 }
 .profile-stats{
     --stats-gap:clamp(.75rem,5vw,2rem);
@@ -161,17 +165,18 @@
         --profile-indent:0%;
     }
 }
-.tickets{
-    padding-inline: var(--profile-padding);
+.profile-tickets{
     height: fit-content;
     max-width: 100%;
-    background-color: red;
+    /* background-color: rgba(255, 0, 0, 0.345);    */
     margin-block: 1rem;
-    padding-block: .5rem;
+    padding-inline: .5rem;
+    padding-bottom: .25rem;
     overflow-x: auto;
     display: flex;
     gap: 1rem; 
+    padding-bottom: .5rem;
 }
-.tickets > * {
+.profile-tickets > * {
     flex-shrink: 0;
 }
