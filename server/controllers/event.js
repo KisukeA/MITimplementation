@@ -7,7 +7,7 @@ export const addEvent = (req,res) => {
 
     jwt.verify(token, "gjoretinolukasriste", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
-        const q = "INSERT INTO Event (`creator_id`,`title`,`description`,`datetime`,`place`,`latitude`,`longitude`,`category`) VALUES (?) ";
+        const q = "INSERT INTO Event (`creator_id`,`title`,`description`,`datetime`,`place`,`latitude`,`longitude`,`category`,`price`) VALUES (?) ";
         const values = [
             userInfo.id,
             req.body.title,
@@ -16,9 +16,9 @@ export const addEvent = (req,res) => {
             req.body.place,
             req.body.latitude,
             req.body.longitude,
-            req.body.category
+            req.body.category,
+            req.body.price,
         ]
-        console.log(values);
         return db.query(q,[values], (err,data)=>{
             if(err) return res.status(500).json(err);
             return res.status(200).json("Event created");
@@ -116,8 +116,8 @@ export const getSearchedEvents = (req,res) => {
     if (err) return res.status(403).json("Token is not valid");
     const keyword = req.query.keyword;
     const filter = req.query.filter;
-    const q = `SELECT * FROM Event 
-    WHERE ${filter} ${(filter==="title" || filter==="description")?`LIKE '%${keyword}%'`:"= ?"}`;
+    const q = `SELECT e.category,e.creator_id,e.datetime,e.description,e.id,e.price,e.title, e.place, u.username FROM Event e, User u WHERE e.creator_id = u.id
+    AND e.${filter} ${(filter==="title" || filter==="description")?`LIKE '%${keyword}%'`:"<= ?"}`;
     return db.query(q,(filter==="title" || filter==="description")?[]:[keyword], (err,data)=>{
         if(err) return res.status(500).json(err);
         return res.status(200).json(data);

@@ -5,6 +5,7 @@
     width: calc(100svw + 4 * var(--page-padding));
     height: var(--nav-height);
     background-color: transparent;
+    z-index: 5;
 }
 .nav-create-button{
     padding: 0;

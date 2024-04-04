@@ -34,7 +34,7 @@ const Filters = ({filtersRef,filtersOpen, setFiltersOpen, searchData, setSearchD
                     </>
                     : searchData.generalFilter === "events" ?
                     <>
-                        <span className={`filter ${searchData.filter==="category"?'current-filter':''}`} onClick={()=>setSearchData(prev=>({...prev,filter:"category"}))}>Category</span>
+                        <span className={`filter ${searchData.filter==="price"?'current-filter':''}`} onClick={()=>setSearchData(prev=>({...prev,filter:"price"}))}>Price</span>
                         <span className={`filter ${searchData.filter==="title"?'current-filter':''}`} onClick={()=>setSearchData(prev=>({...prev,filter:"title"}))}>Title</span>
                         <span className={`filter ${searchData.filter==="description"?'current-filter':''}`} onClick={()=>setSearchData(prev=>({...prev,filter:"description"}))}>Description</span>
                     </>

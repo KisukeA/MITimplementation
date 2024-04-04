@@ -7,7 +7,8 @@ import UserProfile from "./pages/userprofile/userprofile.js";
 import SingleEvent from "./pages/singleevent/singleevent.js";
 import Home from "./pages/home/home.js";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import cookies from 'js-cookie';
 import './App.css';
 
 
@@ -37,6 +38,13 @@ function App() {
     }
     return children;
   };
+  // const ProtectedHome = ({ children }) => {
+  //   const cookie = cookies.get('token');
+  //   if (!cookie && !user) {
+  //     return <Navigate to="/login" />;
+  //   }
+  //   return children;
+  // }; not working, yet
   const ProtectedProfile = ({ children }) => {
     const { userId } = useParams();
     if (user?.id.toString() !== userId) {
@@ -62,7 +70,7 @@ function App() {
       children: [
         {
           index:true,
-          element: <Home />,
+          element:<Home />,
         },
         {
           path: "/profile/:userId",

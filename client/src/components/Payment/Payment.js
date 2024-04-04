@@ -25,10 +25,13 @@ const Payment = ({setPaid, event, setOpenPayment}) => {
     }
     return (
       <div className="payment">
-        <button onClick={()=>{setOpenPayment(false)}}><FontAwesomeIcon icon={faArrowLeft} /></button>
-        <br></br>
-        <span>Price {event.price}</span>
-        <button onClick={handlePay}>pay</button>
+        <button className='payment-back' onClick={()=>{setOpenPayment(false)}}><FontAwesomeIcon icon={faArrowLeft} /></button>
+        <span>Price: {event.price}€</span>
+        <span>Some card info</span>
+        <span>Date</span>
+        <span>Pin</span>
+        <span>idk</span>
+        <button className='payment-btn' onClick={handlePay}>pay</button>
       </div>
     )
   }

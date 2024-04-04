@@ -32,7 +32,6 @@ const SingleEvent = () => {
         queryKey: ["singleevent",eventId], 
         queryFn: () => {
         return makeRequest.get(`/event/single?eventId=${eventId}`).then((res)=>{
-            console.log(res.data)
           return res.data;
         })}
     });

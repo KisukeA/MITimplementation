@@ -41,3 +41,27 @@ export const getSearchedUsers = (req,res) =>{
         })
     })
 }
+export const updateUser = (req, res) => {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json("Not authenticated!");
+    jwt.verify(token, "gjoretinolukasriste", (err, userInfo) => {
+      if (err) return res.status(403).json("Token is not valid!");
+      const q = 
+        "UPDATE User SET `bio`=? ,`profile_picture`=? ,`profession`=?,`email`=? WHERE id = ?" ;
+      const values = [
+        req.body.bio,
+        req.body.profile_picture,
+        req.body.profession,
+        req.body.email,
+        userInfo.id,
+        userInfo.id
+      ]
+      db.query(
+        q,values,(err, data) => {
+          if (err) res.status(500).json(err);
+          if (data.affectedRows > 0) return res.json("Updated!");
+          return res.status(403).json("You can update only your post!");
+        }
+      );
+    });
+};
