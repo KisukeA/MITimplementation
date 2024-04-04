@@ -67,7 +67,7 @@
     background-color: #D9D9D9;
 }
 .filter{
-    padding-block: .5rem;
+    padding: 1rem;
 }
 .filters-content > button {
     width: 56%;

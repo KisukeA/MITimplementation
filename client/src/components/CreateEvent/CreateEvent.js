@@ -93,7 +93,10 @@ const CreateEvent = ({closing, setClosing}) => {
                         <option value="festival"> Festival </option>
                         <option value="concert"> Concert </option>
                         <option value="bar"> Bar </option>
+                        <option value="fair"> Fair </option>
+                        <option value="charity"> Charity </option>
                         <option value="sport"> Sport </option>
+                        <option value="rave"> Rave </option>
                     </select>
                 </div>
             <div className="create-form main-content">

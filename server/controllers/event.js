@@ -19,7 +19,6 @@ export const addEvent = (req,res) => {
             req.body.category,
             req.body.price,
         ]
-        console.log(values);
         return db.query(q,[values], (err,data)=>{
             if(err) return res.status(500).json(err);
             return res.status(200).json("Event created");

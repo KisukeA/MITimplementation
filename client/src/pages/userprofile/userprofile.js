@@ -3,6 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { makeRequest } from "../../axios.js";
 import { AuthContext } from "../../context/AuthContext.js";
+import { ReactComponent as SettingsIcon } from '../../assets/settingswhite.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Event from "../../components/Event/Event.js";
@@ -24,8 +25,6 @@ const UserProfile = ({setSearchOpen}) => {
     "longitude": 13.738011
 }
   const userId = parseInt(useLocation().pathname.split("/")[2]);
-  const { user } = useContext(AuthContext);
-  const [following, setFollowing] = useState(false);
   const { isLoading, error, data } = useQuery({
     queryKey:["user",userId],
     queryFn: () =>{
@@ -77,22 +76,23 @@ const UserProfile = ({setSearchOpen}) => {
           <FontAwesomeIcon icon={faArrowLeft} />
         </Link>
         <h1>User Profile</h1>
+        <SettingsIcon className="userprofile-settings-icon"/>
         <div className="userprofile-info">
           <div className="userprofile-username-wrapper">
             <span className="userprofile-username">{data?.username}</span>
             <span className="userprofile-user-desc">Profession/What are you?</span>
           </div>
           <span className="userprofile-user-bio">Lorem ipsum dolor sit amet, conse ctetur adipiscing elit, sed do eiusmod tempor.</span>
+          <div className="userprofile-stats">
+              <span className="userprofile-stat-field">{events?.length} EVENTS</span>
+              <span className="userprofile-stat-field">{data?.followers} {data?.followers === 1?"FAVORER":'FAVORERS'}</span>
+              <span className="userprofile-stat-field">{data?.following} FAVORING</span>
+          </div>
+        </div>
           <div className="userprofile-buttons">
             <button className={`userprofile-button ${data?.bFollowing?'following':''}`} onClick={follow}>{data?.bFollowing?'UNFAVOR':'FAVORITE'}</button>
             <button className="userprofile-button">MESSAGE</button>
           </div>
-        </div>
-        <div className="userprofile-stats">
-            <span className="userprofile-stat-field">{events?.length} EVENTS</span>
-            <span className="userprofile-stat-field">{data?.followers} {data?.followers === 1?"FAVORER":'FAVORERS'}</span>
-            <span className="userprofile-stat-field">{data?.following} FAVORING</span>
-        </div>
         <div className="userprofile-events">
           {eError
             ? "Something went wrong!"

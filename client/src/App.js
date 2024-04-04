@@ -33,12 +33,18 @@ function App() {
   };
 
   const ProtectedRoute = ({ children }) => {
-    const cookie = cookies.get('token');
-    if (!cookie && !user) {
+    if (!user) {
       return <Navigate to="/login" />;
     }
     return children;
   };
+  // const ProtectedHome = ({ children }) => {
+  //   const cookie = cookies.get('token');
+  //   if (!cookie && !user) {
+  //     return <Navigate to="/login" />;
+  //   }
+  //   return children;
+  // }; not working, yet
   const ProtectedProfile = ({ children }) => {
     const { userId } = useParams();
     if (user?.id.toString() !== userId) {
@@ -64,7 +70,7 @@ function App() {
       children: [
         {
           index:true,
-          element: <Home />,
+          element:<Home />,
         },
         {
           path: "/profile/:userId",

@@ -1,3 +1,4 @@
+/* general */
 .profilesettings{
     --psettings-padding: clamp(1rem,8vw,1.75rem);
     --ps-indent:5%;
@@ -28,6 +29,7 @@
         left:100%;
     }
 }
+/* header */
 .ps-back-icon{
     font-size: clamp(1.5rem,5vw,2.5rem);
     color: white;
@@ -36,6 +38,7 @@
     align-self: end;
     
 }
+
 .profilesettings > h1{
     color: white;
     margin: 0;
@@ -47,6 +50,7 @@
     font-size: clamp(1.5rem,5vw,2.5rem);
     line-height: clamp(1.5rem,5vw,2.5rem);
 }
+/* settings */
 .ps-settings{
     --pss-gap: clamp(1.25rem,7vw,2.5rem);
     grid-row: 2/3;
@@ -83,6 +87,7 @@
     aspect-ratio: 1/1;
     width: clamp(1rem,4vw,2rem);
 } */
+/* options */
 .ps-options{
     grid-row: 3/4;
     grid-column: 2/3;

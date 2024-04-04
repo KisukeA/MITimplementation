@@ -1,0 +1,197 @@
+.editprofile{
+    --epettings-padding: clamp(1rem,8vw,1.75rem);
+    --ep-indent:5%;
+    background: linear-gradient(90deg, #E65D7C 0%, #BF5EE4 100%);
+    position: absolute;
+    z-index: 5;
+    inset: 0;
+    left: 100%;
+    animation: slide-in-ep 400ms forwards;
+    padding: var(--epettings-padding);
+    display: grid;
+    grid-template-columns: var(--ep-indent) 1fr var(--ep-indent);
+    grid-template-rows: 10% 1fr 1fr;
+    --ep-padding: clamp(1rem,5vw,3rem);
+}
+.closing-ep{
+    animation: slide-out-ep 400ms forwards;
+}
+@keyframes slide-in-ep {
+    to{
+        left:0%;
+    }
+}
+@keyframes slide-out-ep {
+    from{
+        left: 0;
+    }
+    to{
+        left:100%;
+    }
+}
+.ep-back-icon{
+    font-size: clamp(1.5rem,5vw,2.5rem);
+    color: white;
+    grid-row: 1/2;
+    grid-column: 2/3;
+    align-self: end;
+    
+}
+.editprofile > h1{
+    color: white;
+    margin: 0;
+    font-weight: 500;
+    justify-self: center;
+    align-self: end;
+    grid-row: 1/2;
+    grid-column: 2/3;
+    font-size: clamp(1.5rem,5vw,2.5rem);
+    line-height: clamp(1.5rem,5vw,2.5rem);
+}
+.ep-inputs{
+    --ep-gap: clamp(1.25rem,7vw,2.5rem);
+    grid-row: 2/3;
+    grid-column: 2/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: clamp(1rem,5vh,2rem);
+    gap: var(--ep-gap);
+}
+.ep-input{
+    color: white;
+    box-sizing: border-box;
+    padding: var(--ep-padding);
+    /* height: calc(calc(100% - (2 * var(--ep-gap))) / 3); */
+    height: fit-content;
+    border-radius: var(--ep-padding);
+    font-size: clamp(1rem,4vw,2rem);
+    background-color: rgba(217, 217, 217, 0.38);
+    max-width: calc(100vw - 2 * var(--ep-padding) - 2 * var(--ep-indent));
+}
+.ep-input-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media screen and (min-aspect-ratio: 1/1) {
+    .ep-input{
+        --ep-padding: min(clamp(1rem,5vw,3rem),2.25vh);
+    }
+}
+/* .ep-input > * {
+    height: fit-content;
+}
+.ep-input > svg {
+    aspect-ratio: 1/1;
+    width: clamp(1rem,4vw,2rem);
+} */
+/* options */
+/* .ep-options{
+    grid-row: 3/4;
+    grid-column: 2/3;
+}
+.ep-option{
+    font-size: clamp(1rem,4vw,2rem);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 1rem;
+}
+.ep-option > input {
+    width: clamp(1rem,4vw,2rem);
+    aspect-ratio: 1/1;
+    border: none;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+} */
+
+/* dropdowns */
+.ep-dropdown {
+    border-radius: var(--ep-padding);
+    opacity: 0;
+    height: 50px;
+    box-sizing: border-box  ;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+.ep-dropdown > * {
+    opacity: 0;
+}
+.ep-dropdown.opening{
+    margin-top: 1rem;
+    opacity: 1;
+    padding: .5rem;
+    transition: height 200ms, margin-top 200ms, opacity 200ms, padding 200ms;
+}
+.ep-dropdown.opening > *{
+    display: block;
+    opacity: 1;
+    transition: opacity 200ms;
+}
+.ep-dropdown.closing > *{
+    display: none;
+    opacity: 0;
+    transition: opacity 200ms;
+}
+.ep-dropdown.closing{
+        height: 0;
+        margin-top: 0;
+    opacity: 0;
+    transition: height 200ms, margin-top 200ms, opacity 150ms;
+}
+.ep-input-header > .rotating{
+    transform: rotateZ(90deg);
+    transition: transform 200ms;
+}
+.ep-input-header > svg {
+    transform: rotateZ(0deg);
+    transition: transform 200ms;
+}
+.ep-dropdown > input, textarea{
+    border: 0;
+    border-radius: 100vw;
+    height: min(100%,30px);
+    background-color: #E65D7C;
+    color: white;
+    width: 90%;
+    margin-inline: auto;
+    padding: .25rem .5rem;
+}
+textarea{
+    border-radius:2px;
+    resize: none;
+    line-height: 1.2em;
+    height: 3.6em;
+    margin: 0 auto;
+}
+.ep-dropdown > input:focus-visible, textarea:focus-visible{
+    outline: 0;
+}
+input[type='file'] {
+    height: fit-content;
+}
+.update-button{
+    grid-row: 3/4;
+    grid-column: 2/3;
+    height: fit-content;
+    width: 56%;
+    border: none;
+    color: white;
+    background-color: #FF7575;
+    padding: var(--ep-padding);
+    border-radius: var(--ep-padding);
+    margin-inline: auto;
+    font-size: clamp(1rem,4vw,2rem);
+}
+.ep-success{
+    grid-row: 3/4;
+    grid-column: 2/3;
+    font-size: clamp(1.5rem,5vw,2rem);
+    justify-self: center;
+    align-self: end;
+    font-family: Inter;
+    color: white;
+}

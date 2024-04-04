@@ -20,7 +20,7 @@ const Ticket = ({ticket}) => {
         <div className='ticket-location'><span>{ticket.place}</span></div>
         {/* prolly don't need this check here to={`/${ticket.id===user.id?'':'user'}profile/${ticket.id}`} */}
         <span className='ticket-email'>
-          <Link to={`/userprofile/${ticket.id}`}>
+          <Link to={`/userprofile/${ticket.event_creator_id}`}>
             {ticket.username} 
           </Link> 
           <FontAwesomeIcon icon={faSquareEnvelope} onClick={()=>{setOpenEmailPopup(prev=>!prev)}}/>

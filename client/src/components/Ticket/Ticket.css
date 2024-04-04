@@ -73,3 +73,8 @@
 .ticket-email-popup::-webkit-scrollbar{
     display: none;
 }
+@media screen and (min-aspect-ratio: 1/1) {
+    .ticket{
+        --ticket-fs: clamp(.5rem,2vw,.9rem);
+    }
+}

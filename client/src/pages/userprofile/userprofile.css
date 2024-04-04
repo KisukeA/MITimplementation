@@ -39,14 +39,7 @@
     align-items: center;
     height: calc(100% - var(--nav-height));
 }
-@media screen and (min-aspect-ratio: 1/1) {
-    .userprofile-content{
-        --userprofile-indent:5%;
-    }
-    .userprofile-content > h1{
-        display: none;
-    }
-}
+
 .userprofile-content > * {
     z-index: 0;
 }
@@ -55,6 +48,14 @@
     color: white;
     grid-row: 1/2;
     grid-column: 2/3;
+}
+.userprofile-settings-icon{
+    width: clamp(1.825rem, 5vw ,2.5rem);
+    height: clamp(1.825rem, 5vw ,2.5rem);
+    color: white;
+    grid-row: 1/2;
+    grid-column: 4/5;
+    align-self: end;
 }
 .userprofile-content > h1 {
     font-weight: 500;
@@ -86,11 +87,26 @@
     font-size: clamp(1rem,3vh,2rem);
 }
 .userprofile-user-desc, .userprofile-user-bio{
+    --bio-padding: clamp(.75rem,2vh,1.25rem);
+    --bio-line-height:1.2em;
     color: #666666;
     text-align: center;
+    line-height: var(--bio-line-height);
     font-size: clamp(.5rem,2vh,1rem);
+    overflow-y: auto;
+    padding-inline: var(--bio-padding);
+}
+.userprofile-user-desc{
+    max-height: calc( 2 * var(--bio-line-height) );
+    max-width: 30ch;
+}
+.userprofile-user-bio{
+    max-height: calc( 3 * var(--bio-line-height) );
+    max-width: 50ch;
 }
 .userprofile-buttons{
+    grid-row: 3/4;
+    grid-column: 3/4;
     display: flex;
     gap: 1rem;
 }
@@ -100,23 +116,22 @@
     border: 3px solid #FF6C6C;
     border-radius: 100vw;
     padding: clamp(.5rem,1vh,1rem);
-    line-height: clamp(.75rem,2vh,1.5rem);
     font-size: clamp(.75rem,2vh,1.5rem);
-    font-weight: 600;
+    font-weight: 700;
 }
-.following{
-    color: white;
-    background-color: #FF6C6C;
+.userprofile-button:focus-visible{
+    outline: 3px solid #ff4545;
 }
 .userprofile-stats{
     --stats-gap:clamp(.75rem,5vw,2rem);
-    grid-row: 3/4;
-    grid-column: 3/4;
     display: flex;
     flex-wrap: wrap;
     max-width: 100%;
     gap: calc( var(--stats-gap) / 2 );
     margin-bottom: .5rem;
+}
+.userprofile-stats > *{
+    padding-left: calc( var(--stats-gap) / 2 );
 }
 .userprofile-stat-field{
     font-size: clamp(.5rem,3vw,1.25rem);
@@ -127,7 +142,10 @@
 }
 .userprofile-stat-field + .userprofile-stat-field {
     border-left: solid 3px black;
-    padding-left: calc( var(--stats-gap) / 2 );
+}
+.following{
+    color: white;
+    background-color: #FF6C6C;
 }
 .userprofile-events{
     grid-row: 4/5;
@@ -145,5 +163,22 @@
 @media screen and (max-width: 350px) {
     .userprofile-content{
         --userprofile-indent:0%;
+    }
+}
+@media screen and (min-aspect-ratio: 1/1) {
+    .userprofile-content{
+        --userprofile-indent:5%;
+    }
+    .userprofile-content > h1{
+        display: none;
+    }
+    .userprofile-picture{
+        width: clamp(75px,10%,100px);
+    }
+    .userprofile-stat-field{
+        font-size: clamp(.625rem,2.25vw,.85rem);
+    }
+    .userprofile-button{
+        font-size: clamp(.625rem,2.25vw,.85rem);
     }
 }

@@ -7,7 +7,7 @@ export const login = (req,res) =>{
     //secret key used for creating the cookie
     const secretKey = "gjoretinolukasriste";
     //fetch whatever else we need, like locaion name etc...
-    const q = "SELECT * FROM User WHERE username = ?"
+    const q = "SELECT id, username, password, role FROM User WHERE username = ?"
     db.query(q,[req.body.username],(err,data)=>{
         if(err) return res.status(500).json(err)
         if(!data.length) return res.status(404).json("User not found")
@@ -17,10 +17,9 @@ export const login = (req,res) =>{
         // if the password is correct we create a cookie, we sign the id of the current user with our secret key
         const token = jwt.sign({id:data[0].id}, secretKey);
         //we dont include the password of course
-        const { password, ...others } = data[0];
         res.cookie("token",token,{
             httpOnly:true,
-        }).status(200).json(others);
+        }).status(200).json(data[0]);
     }); 
 }
 
