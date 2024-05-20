@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays,faClock,faThumbTack } from '@fortawesome/free-solid-svg-icons';
 import "./Event.css";
 
-const Event = ({event, profilePage, setOpenAnalysis}) => {
+const Event = ({event, setEventAnalyzed, profilePage, setOpenAnalysis}) => {
 
   const { isLoading:gIsLoading, error:gError, data:going } = useQuery({
     queryKey: ["eventgoing",event.id], 
@@ -52,7 +52,7 @@ const Event = ({event, profilePage, setOpenAnalysis}) => {
               <button className="event-interested-button">Want to go</button>
             </Link>
           </div>:
-          <button className="event-interested-button purple" onClick={()=>{setOpenAnalysis(true)}}>Analyze</button>
+          <button className="event-interested-button purple" onClick={()=>{setEventAnalyzed(event);setOpenAnalysis(true)}}>Analyze</button>
         }
       </div>
     </div>

@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareEnvelope } from '@fortawesome/free-solid-svg-icons';
 import "./Ticket.css";
+import moment from "moment";
 const Ticket = ({ticket}) => {
 
     const { user } = useContext(AuthContext);
@@ -29,7 +30,11 @@ const Ticket = ({ticket}) => {
           </div>}
         </span>
         <span>Price: {ticket.price}€</span>
-        <button >View</button>
+        <Link to={`/singleevent/${ticket.id}`} style={{ textDecoration: "none", color:"inherit"}}>
+          <button className='ticket-button'>
+            {moment().isBefore(ticket.datetime)?"View":"Review"}
+          </button>
+        </Link>
       </div>
     )
   }

@@ -49,13 +49,14 @@
     justify-content: space-between;
     position: relative;
 }
-.ticket > button {
+.ticket-button {
     border-radius: .5rem;
     border: none;
     background-color: white;
     color: #BE5DE4;
     padding-block: .25rem;
     font-weight: 600;
+    width: 100%;
 }
 .ticket-email-popup{
     background-color: white;

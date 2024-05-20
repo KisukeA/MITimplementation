@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft,faMapPin,faCalendarDays,faClock,
     faHandHoldingHeart,faBeerMugEmpty,faIcons,faDrum,faHandPointer,faStore,faFootball,faMartiniGlassCitrus } from '@fortawesome/free-solid-svg-icons';
 import Payment from "../../components/Payment/Payment.js";
+import Rating from "../../components/Rating/Rating.js";
+import moment from "moment";
 import "./singleevent.css"; 
 
 const SingleEvent = () => {
@@ -16,7 +18,10 @@ const SingleEvent = () => {
     // Access URL parameters
     const { eventId } = useParams();
     const [ openPayment, setOpenPayment ] = useState(false);
-    const [ closingEvent, setClosingEvent ] = useState(false)  
+    const [ closingEvent, setClosingEvent ] = useState(false);
+    const [ openRating, setOpenRating ] = useState(false);
+    const [ percentage, setPercentage ] = useState(0);
+
     const navigate = useNavigate();
     let categoryIcon;
     useEffect(() => {
@@ -32,6 +37,7 @@ const SingleEvent = () => {
         queryKey: ["singleevent",eventId], 
         queryFn: () => {
         return makeRequest.get(`/event/single?eventId=${eventId}`).then((res)=>{
+          setPercentage(res.data.rating);
           return res.data;
         })}
     });
@@ -68,6 +74,7 @@ const SingleEvent = () => {
             categoryIcon = faStore;
             break;
       }
+    const upcoming = moment().isBefore(event?.datetime);
     return (
         <div className={`single-wrapper ${closingEvent?'closingEvent':''}`}>
             <button className="single-exit-btn" onClick={()=>{setClosingEvent(true)}}>
@@ -109,34 +116,93 @@ const SingleEvent = () => {
                     <label> Description </label>
                      <span className="single-description"> {event?.description}{/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.*/}</span> 
                 </div>
-                <div className="single-going">
-                    <label> People going </label>
-                    <div className="single-avatars">
-                      {gIsLoading? "loading":
-                       gError? "error":
-                       going.length > 0 ?
-                        going.map((user, index)=>(
-                        <div  key={index}>{parseInt(index) < 5 ? //only 5 will be previewed
-                            (index===4 && going.length - 5 > 0) ? //if there is more than 5
-                            //the 5th one will say that there are X more
-                            <span className='going-img and-more'>+{going.length - 5}</span>
-                            : 
-                            <img className='going-img'  
-                              src={`/upload/${user.profile_picture?user.profile_picture:'default.png'}`}>
-                            </img>
-                            : <></> //else we don't display it
-                        }</div>)): 
-                       <p style={{margin:"0"}}>none, yet</p>
-                      }
+                {upcoming?
+                    <div className="single-going">
+                        <label> People going </label>
+                        <div className="single-avatars">
+                          {gIsLoading? "loading":
+                           gError? "error":
+                           going.length > 0 ?
+                            going.map((user, index)=>(
+                            <div  key={index}>{parseInt(index) < 5 ? //only 5 will be previewed
+                                (index===4 && going.length - 5 > 0) ? //if there is more than 5
+                                //the 5th one will say that there are X more
+                                <span className='going-img and-more'>+{going.length - 5}</span>
+                                : 
+                                <img className='going-img'  
+                                  src={`/upload/${user.profile_picture?user.profile_picture:'default.png'}`}>
+                                </img>
+                                : <></> //else we don't display it
+                            }</div>)): 
+                           <p style={{margin:"0"}}>none, yet</p>
+                          }
+                        </div>
                     </div>
-                </div>
+                :   event?.paid?
+                        <div className='single-rating'>
+                            <span>People's ratings</span>
+                            <div className='single-rating-stars'>
+                                <svg className="star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+                                    <defs>
+                                      <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset={`${percentage >= 1?'100':percentage>=0?((percentage-Math.floor(percentage))*100):0}%`} style={{ stopColor: 'yellow', stopOpacity: 1 }} />
+                                        <stop offset={`${percentage >= 1?'100':percentage>=0?((percentage-Math.floor(percentage))*100):0}%`} style={{ stopColor: 'grey', stopOpacity: 1 }} />
+                                      </linearGradient>
+                                    </defs>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#grad1)" />
+                                </svg>
+                                <svg className="star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+                                    <defs>
+                                      <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset={`${percentage >= 2?100:percentage>=1?((percentage-Math.floor(percentage))*100):0}%`} style={{ stopColor: 'yellow', stopOpacity: 1 }} />
+                                        <stop offset={`${percentage >= 2?100:percentage>=1?((percentage-Math.floor(percentage))*100):0}%`} style={{ stopColor: 'grey', stopOpacity: 1 }} />
+                                      </linearGradient>
+                                    </defs>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#grad2)" />
+                                </svg>
+                                <svg className="star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+                                    <defs>
+                                      <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset={`${percentage >= 3?100:percentage>=2?((percentage-Math.floor(percentage))*100):0}%`} style={{ stopColor: 'yellow', stopOpacity: 1 }} />
+                                        <stop offset={`${percentage >= 3?100:percentage>=2?((percentage-Math.floor(percentage))*100):0}%`} style={{ stopColor: 'grey', stopOpacity: 1 }} />
+                                      </linearGradient>
+                                    </defs>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#grad3)" />
+                                </svg>
+                                <svg className="star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+                                    <defs>
+                                      <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset={`${percentage >= 4?100:percentage>=3?((percentage-Math.floor(percentage))*100):0}%`} style={{ stopColor: 'yellow', stopOpacity: 1 }} />
+                                        <stop offset={`${percentage >= 4?100:percentage>=3?((percentage-Math.floor(percentage))*100):0}%`} style={{ stopColor: 'grey', stopOpacity: 1 }} />
+                                      </linearGradient>
+                                    </defs>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#grad4)" />
+                                </svg>
+                                <svg className="star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+                                    <defs>
+                                      <linearGradient id="grad5" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset={`${percentage >= 5?100:percentage>=4?((percentage-Math.floor(percentage))*100):0}%`} style={{ stopColor: 'yellow', stopOpacity: 1 }} />
+                                        <stop offset={`${percentage >= 5?100:percentage>=4?((percentage-Math.floor(percentage))*100):0}%`} style={{ stopColor: 'grey', stopOpacity: 1 }} />
+                                      </linearGradient>
+                                    </defs>
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#grad5)" />
+                                </svg>    
+                            </div>
+                            <span className='single-rate-link' onClick={()=>{setOpenRating(true)}}>Rate this event!</span>
+                        </div>
+                    : <></>
+                }
             </div>
-            <button className={`single-event-btn full-screen last-row ${event?.paid?'paid':''}`} onClick = {()=>{if(!event?.paid)setOpenPayment(true)}}> 
-                {!event?.paid?'I WANT TO GO':'INTERESTED'}
+            <button className={`single-event-btn full-screen last-row ${event?.paid?'paid':''}`} onClick = {()=>{if(!event?.paid && upcoming)setOpenPayment(true)}}> 
+                {upcoming?
+                    !event?.paid?'I WANT TO GO':'INTERESTED'
+                :   
+                    "FINISHED"
+                }
             </button>
             {openPayment && <Payment setOpenPayment={setOpenPayment} event={event}/>}
+            {openRating && <Rating setOpenRating = {setOpenRating} eventRated = {event}/>}
         </div>
     )
   }
-  
 export default SingleEvent

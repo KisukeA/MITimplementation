@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faMars ,faVenus } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import "./register.css";
 
@@ -16,7 +17,9 @@ const Register = () => {
       username: "",
       password: "",
       confirm: "",
-      role:""
+      role:"",
+      gender:"",
+      age:''
   })
   const chooseRef = useRef();
   const updateCred = (e) =>{
@@ -25,7 +28,7 @@ const Register = () => {
   }
   const sendRegister = async (e) => {
       e.preventDefault();
-      if(cred.username.length === 0 || cred.confirm.length === 0 || cred.password.length === 0 || cred.role.length === 0){
+      if( cred.age.length === 0 || cred.gender.length === 0 || cred.username.length === 0 || cred.confirm.length === 0 || cred.password.length === 0 || cred.role.length === 0){
           setError("Please fill all the fields");
           return;
       }
@@ -35,7 +38,9 @@ const Register = () => {
             username: "",
             password: "",
             confirm: "",
-            role:""
+            role:"",
+            gender:"",
+            age:''
         })
           setSuccess(true);
       }
@@ -55,7 +60,7 @@ const Register = () => {
     }
   }, [error]);
   useEffect(()=>{
-    if(cred.username.length === 0 || cred.confirm.length === 0 || cred.password.length === 0 || cred.role.length === 0){
+    if( cred.age.length === 0 || cred.gender.length === 0 || cred.username.length === 0 || cred.confirm.length === 0 || cred.password.length === 0 || cred.role.length === 0){
       setRed(false);
       return;
     }
@@ -70,7 +75,6 @@ const Register = () => {
     if (chooseRole) {
         document.addEventListener('click', handleClickOutside, true);
     }});
-  console.log(cred);
   return (
     <div className="register-wrapper">
       <div className = "blur"></div>
@@ -100,7 +104,18 @@ const Register = () => {
               <input onChange = {updateCred} type="password" id="register-confirm" className="register-input"
                   name="confirm" placeholder="Confirm password..." value={cred.confirm}></input>
             </div>
+            <div className="register-gender-age">
+              <div className="register-gender">
+                <FontAwesomeIcon onClick={()=>{setCred((prev)=>({...prev,gender:"female"}))}} icon={faVenus} className = {`register-female ${cred.gender==="female"?'highlight':''}`} />
+                <FontAwesomeIcon onClick={()=>{setCred((prev)=>({...prev,gender:"male"}))}} icon={faMars} className = {`register-male ${cred.gender==="male"?'highlight':''}`} />
+              </div>
+              <div className="register-age">
+                <label htmlFor="register-age">Age:</label>
+                <input type="number" name="age" onChange={updateCred} value={cred.age} id="register-age" className="register-age-input"></input>
+              </div>
+            </div>  
           </form>
+          
           <button className = "register-role" onClick={()=>setChooseRole(true)}>
             Choose role
           </button>

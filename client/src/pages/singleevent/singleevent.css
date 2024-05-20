@@ -166,6 +166,24 @@
     background: linear-gradient(90deg, #EFA9AA 0%, #CAA4EE 100%);
     color: #5e5d5d;
 }
+.single-rating{
+    font-size: clamp(1rem, 5vw, 1.5rem);
+    font-weight: 700;
+    text-align: center;
+}
+.single-rating-stars{
+    display: flex;
+    justify-content: center;
+}
+.star {
+    fill:gray;
+    width: 35px;
+    height: 35px;
+}
+.single-rate-link{
+    text-decoration: underline;
+    color: #132BFF;
+}
 @media screen and (min-width: 820px) {
     .single-meta > label{
         width: fit-content;

@@ -102,8 +102,8 @@ export const getFavoriteEvents = (req,res) => {
     jwt.verify(token, "gjoretinolukasriste", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid");
         const q = `SELECT e.* FROM Event e WHERE e.creator_id IN 
-        (SELECT followed_id FROM Following WHERE follower_id = ?) ORDER BY e.datetime ASC`;
-        return db.query(q,[userInfo.id], (err,data)=>{
+        (SELECT followed_id FROM Following WHERE follower_id = ?) ${!!req.query.category?'AND e.category = ?':''} AND e.datetime > NOW() ORDER BY e.datetime ASC`;
+        return db.query(q,!!req.query.category?[userInfo.id, req.query.category]:[userInfo.id], (err,data)=>{
             if(err) return res.status(500).json(err);
             return res.status(200).json(data);
         })

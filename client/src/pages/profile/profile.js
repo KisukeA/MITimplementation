@@ -19,7 +19,8 @@ const Profile = () => {
   const [ openProfileSettings, setOpenProfileSettings ] = useState(false);
   const [ openEditProfile, setOpenEditProfile ] = useState(false);
   const [ openAnalysis, setOpenAnalysis ] = useState(false);
-
+  const [ eventAnalyzed, setEventAnalyzed ] = useState(null);
+  
   const { isLoading:uLoading, error:uError, data:profileData } = useQuery({
     queryKey: ["profile"], 
     queryFn: () => {
@@ -82,7 +83,7 @@ const Profile = () => {
                   ? "Something went wrong!"
                   : eLoading
                   ? "loading"
-                  : events?.length > 0 ? events.map((event) => <Event profilePage={true} openAnalysis={openAnalysis} setOpenAnalysis={setOpenAnalysis} event={event} key={event.id} />)
+                  : events?.length > 0 ? events.map((event) => <Event profilePage={true} setEventAnalyzed={setEventAnalyzed} setOpenAnalysis={setOpenAnalysis} event={event} key={event.id} />)
                   : "no events"
               }
             </div>
@@ -91,7 +92,7 @@ const Profile = () => {
                   ? "Something went wrong!"
                   : tLoading
                   ? "loading"
-                  : tickets?.length > 0 ? tickets.map((ticket) => <Ticket profilePage={true} ticket={ticket} key={ticket.id} />)
+                  : tickets?.length > 0 ? tickets.map((ticket) => <Ticket ticket={ticket} key={ticket.id} />)
                   : "no events"
               }
             </div>
@@ -100,7 +101,7 @@ const Profile = () => {
         <Nav />
         {openProfileSettings && <ProfileSettings setOpenProfileSettings={setOpenProfileSettings} />}
         {openEditProfile && <EditProfile setOpenEditProfile={setOpenEditProfile} />}
-        {openAnalysis && <Analysis setOpenAnalysis={setOpenAnalysis}/>}
+        {openAnalysis && <Analysis event={eventAnalyzed} setOpenAnalysis={setOpenAnalysis}/>}
       </div>
     )
   }

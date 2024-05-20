@@ -46,7 +46,6 @@ const Login = () => {
         // Your custom logic here
         setUser({id:0, username:"guest","profilePicture": null, role: "guest"})
       };
-    console.log(credentials);
     return (
         <div className="login-wrapper">
             <div className = "blur"></div>
