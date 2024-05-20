@@ -38,7 +38,7 @@
     border-radius: 20px;
     padding: var(--form-padding);
 }
-form > *:not(:last-child) {
+.register-form form > *:not(:last-child) {
     margin-block-end: 0.75rem;
 }
 .register-form > h2{
@@ -63,6 +63,43 @@ form > *:not(:last-child) {
 }
 .register-label{
     margin-inline-start: .5rem;
+}
+.register-gender-age{
+    display: flex;
+    justify-content: space-between;
+    margin-inline: auto;
+    width: 75%;
+    height: fit-content;
+}
+.register-gender{
+    display: flex;
+    margin-left: 10%;
+    justify-content: space-around;
+    font-size: large;
+    width: 30%;
+    margin-bottom: -.625rem;
+}
+.register-male{
+    color: blue;
+}
+.register-female{
+    color: hotpink;
+}
+.highlight{
+    font-size: x-large
+}
+.register-age{
+    display: flex;
+    gap: .125rem;
+    font-size: clamp(0.55rem,1.75vh,0.75rem);
+    align-items: center;
+}
+.register-age-input{
+    width: 3.5rem ;
+    border: none;
+    border-radius: .5rem;
+    outline: 1px solid red;
+    padding-inline: .5rem;
 }
 .register-submit, .register-role{
     color: white;

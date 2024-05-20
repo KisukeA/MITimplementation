@@ -88,7 +88,7 @@ const EditProfile = ({setOpenEditProfile}) => {
                 icon={faChevronRight} onClick={()=>{setOpenDropdown(prev=>prev!=="pro"?"pro":"")}}/>
             </div>
             {<div className={`ep-dropdown ${openDropdown==="pro"?'opening':'closing'} pro`}>
-                <input type="text" value = {updateData.profession} name = "profession" onChange={handleChange}></input>
+                <input type="text" value = {updateData.profession?updateData.profession:''} name = "profession" onChange={handleChange}></input>
             </div>}
           </div>
           <div className="ep-input">
@@ -98,7 +98,7 @@ const EditProfile = ({setOpenEditProfile}) => {
                 icon={faChevronRight} onClick={()=>{setOpenDropdown(prev=>prev!=="bio"?"bio":"")}}/>
             </div>
             {<div className={`ep-dropdown ${openDropdown==="bio"?'opening':'closing'} bio`}>
-                <textarea value = {updateData.bio} name = "bio" onChange={handleChange}></textarea>
+                <textarea value = {updateData.bio?updateData.bio:''} name = "bio" onChange={handleChange}></textarea>
             </div>}
           </div>
           <div className="ep-input">
@@ -108,7 +108,7 @@ const EditProfile = ({setOpenEditProfile}) => {
                 icon={faChevronRight} onClick={()=>{setOpenDropdown(prev=>prev!=="email"?"email":"")}}/>
             </div>
             {<div className={`ep-dropdown ${openDropdown==="email"?'opening':'closing'} email`}>
-                <input type="email" value = {updateData.email} name = "email" onChange={handleChange} required></input>
+                <input type="email" value = {updateData.email?updateData.email:""} name = "email" onChange={handleChange} required></input>
             </div>}
           </div>
         </div>
